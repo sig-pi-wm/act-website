@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Data
+{% endblock %}
+
+{% block main %}
+
+<div>
+    <header class="data-tabs">
+        {% for season in seasons %}
+        <form action="/data" method="POST">
+            <input type="submit" name="{{ season }}" label="{{ season }}"/>
+        </form>
+        {% endfor %}
+    </header>
+    <main>
+        {% for act in data %}
+        <div class="scorecard">
+            {{ act }}
+        </div>
+        {% endfor %}
+    </main>
+</div>
+
+{% endblock %}
