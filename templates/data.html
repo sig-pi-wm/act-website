@@ -8,11 +8,11 @@
 
 <div>
     <header class="data-tabs">
-        {% for season in seasons %}
         <form action="/data" method="POST">
-            <input type="submit" name="{{ season }}" label="{{ season }}"/>
+            {% for season in seasons %}
+            <button type="submit" name="season" value="{{ season }}">{{ season }}</button>
+            {% endfor %}
         </form>
-        {% endfor %}
     </header>
     <main>
         {% for act in data %}

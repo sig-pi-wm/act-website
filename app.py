@@ -15,6 +15,7 @@ def data():
         season = request.form.get("season")
     else:
         season = "Fall 2024"
+    print(season)
     
     #TODO fetch both from DB
     seasons = ["Fall 2024", "Spring 2023", "Fall 2023"] 
