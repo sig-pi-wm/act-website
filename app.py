@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from config import *
+from dao import DAO
 
 app = Flask(__name__)
+dao = DAO()
 
 @app.route('/', methods=["GET", "POST"])
 def index():
