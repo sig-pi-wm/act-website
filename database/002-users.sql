@@ -1,5 +1,4 @@
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) UNIQUE,
-    pw_hash VARCHAR(255)
+    username VARCHAR(255) UNIQUE NOT NULL
 );
