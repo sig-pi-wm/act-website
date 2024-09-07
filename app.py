@@ -30,6 +30,3 @@ def data():
         "ACT 4",
     ]
     return render_template('data.html', seasons=seasons, data=data)
-
-if __name__ == "__main__":
-    app.run(debug=True)
