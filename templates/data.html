@@ -6,21 +6,18 @@
 
 {% block main %}
 
-<div>
-    <header class="data-tabs">
-        <form action="/data" method="POST">
-            {% for season in seasons %}
-            <button type="submit" name="season" value="{{ season }}">{{ season }}</button>
-            {% endfor %}
-        </form>
-    </header>
-    <main>
-        {% for act in data %}
-        <div class="scorecard">
-            {{ act }}
-        </div>
+<div class="scorecards">
+    <form class="data-tabs" action="/data" method="POST">
+        {% for season in seasons %}
+        <button type="submit" name="season" value="{{ season }}">{{ season }}</button>
         {% endfor %}
-    </main>
+    </form>
+
+    {% for act in data %}
+    <div class="scorecard">
+        {{ act }}
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
