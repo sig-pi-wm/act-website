@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS maps (
     map_id INT AUTO_INCREMENT PRIMARY KEY,
-    map_name VARCHAR(255) NOT NULL,
+    map_name VARCHAR(255) UNIQUE NOT NULL,
     cup VARCHAR(255) NOT NULL
 );
 
-INSERT INTO maps (map_name, cup)
+INSERT IGNORE INTO maps (map_name, cup)
 VALUES
     -- Mushroom Cup
     ('Luigi Circuit', 'Mushroom'),
