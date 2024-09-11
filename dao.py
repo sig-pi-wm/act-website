@@ -2,6 +2,9 @@ import mysql.connector
 import config as config
 import os
 import glob
+import json
+import pprint
+import random
 
 class DAO:
 
@@ -29,14 +32,86 @@ class DAO:
                 for statement in statements:
                     self.__do_query(statement)
 
-    def __do_query(self, query):
+    def __do_query(self, query, values = None):
         query = query.strip()
         if query.endswith(';'):
             query = query[:-1]
         if query == '': # empty
             return
         try:
-            self.__cursor.execute(query)
+            if values is None:
+                self.__cursor.execute(query)
+            else:
+                self.__cursor.execute(query, values)
             self.__cnx.commit()
         except mysql.connector.Error as err:
             print("Failed query: {}".format(err))
+
+    def enter_ACT(self, data):
+        date = data["date"]
+
+        t1_score = data["teams"][0]["score"]
+        t2_score = data["teams"][1]["score"]
+        t3_score = data["teams"][2]["score"]
+        t4_score = data["teams"][3]["score"]
+
+        t1_p1_uid = data["teams"][0]["players"][0]["user_id"]
+        t1_p2_uid = data["teams"][0]["players"][1]["user_id"]
+        t1_p3_uid = data["teams"][0]["players"][2]["user_id"]
+        t1_p4_uid = data["teams"][0]["players"][3]["user_id"]
+
+        t2_p1_uid = data["teams"][1]["players"][0]["user_id"]
+        t2_p2_uid = data["teams"][1]["players"][1]["user_id"]
+        t2_p3_uid = data["teams"][1]["players"][2]["user_id"]
+        t2_p4_uid = data["teams"][1]["players"][3]["user_id"]
+
+        t3_p1_uid = data["teams"][2]["players"][0]["user_id"]
+        t3_p2_uid = data["teams"][2]["players"][1]["user_id"]
+        t3_p3_uid = data["teams"][2]["players"][2]["user_id"]
+        t3_p4_uid = data["teams"][2]["players"][3]["user_id"]
+
+        t4_p1_uid = data["teams"][3]["players"][0]["user_id"]
+        t4_p2_uid = data["teams"][3]["players"][1]["user_id"]
+        t4_p3_uid = data["teams"][3]["players"][2]["user_id"]
+        t4_p4_uid = data["teams"][3]["players"][3]["user_id"]
+
+        query = '''
+            INSERT INTO acts (
+                act_date,
+                t1_score, t2_score, t3_score, t4_score,
+                t1_p1_uid, t1_p2_uid, t1_p3_uid, t1_p4_uid,
+                t2_p1_uid, t2_p2_uid, t2_p3_uid, t2_p4_uid,
+                t3_p1_uid, t3_p2_uid, t3_p3_uid, t3_p4_uid,
+                t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        '''
+
+        # Execute the query with the values
+        values = (
+            date, 
+            t1_score, t2_score, t3_score, t4_score,
+            t1_p1_uid, t1_p2_uid, t1_p3_uid, t1_p4_uid,
+            t2_p1_uid, t2_p2_uid, t2_p3_uid, t2_p4_uid,
+            t3_p1_uid, t3_p2_uid, t3_p3_uid, t3_p4_uid,
+            t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid
+        )
+
+        self.__do_query(query, values)
+
+    def enter_test_users(self):
+        query = '''INSERT INTO users (username) VALUES (%s)'''
+        names = ["bert", "rolf", "eli", "manzari", "justin", "mcguinness", "katabian", "mehler"]
+        for name in names:
+            self.__do_query(query, [name])
+            
+
+
+
+
+dao = DAO()
+with open("example-data.json") as file:
+    data = json.load(file)
+pprint.pp(data)
+dao.enter_test_users()
+dao.enter_ACT(data)

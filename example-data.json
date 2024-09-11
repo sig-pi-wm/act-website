@@ -1,0 +1,427 @@
+{
+    "date": "2024-09-11",
+    "teams": [
+        {
+            "score": 48,
+            "players": [
+                {
+                    "user_id": 1
+                },
+                {
+                    "user_id": 5
+                },
+                {
+                    "user_id": null
+                },
+                {
+                    "user_id": null
+                }
+            ]
+        },
+        {
+            "score": 32,
+            "players": [
+                {
+                    "user_id": 2
+                },
+                {
+                    "user_id": 6
+                },
+                {
+                    "user_id": null
+                },
+                {
+                    "user_id": null
+                }
+            ]
+        },
+        {
+            "score": 16,
+            "players": [
+                {
+                    "user_id": 3
+                },
+                {
+                    "user_id": 7
+                },
+                {
+                    "user_id": null
+                },
+                {
+                    "user_id": null
+                }
+            ]
+        },
+        {
+            "score": 0,
+            "players": [
+                {
+                    "user_id": 4
+                },
+                {
+                    "user_id": 8
+                },
+                {
+                    "user_id": null
+                },
+                {
+                    "user_id": null
+                }
+            ]
+        }
+    ],
+    "races": [
+        {
+            "race_number": 1,
+            "map_id": 1,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 2,
+            "map_id": 2,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 3,
+            "map_id": 3,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 4,
+            "map_id": 4,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 5,
+            "map_id": 5,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 6,
+            "map_id": 6,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 7,
+            "map_id": 7,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 8,
+            "map_id": 8,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 9,
+            "map_id": 9,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 10,
+            "map_id": 10,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 11,
+            "map_id": 11,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 12,
+            "map_id": 12,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 13,
+            "map_id": 13,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 14,
+            "map_id": 14,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 15,
+            "map_id": 15,
+            "players": [
+                {
+                    "user_id": 1,
+                    "points": 3
+                },
+                {
+                    "user_id": 2,
+                    "points": 2
+                },
+                {
+                    "user_id": 3,
+                    "points": 1
+                },
+                {
+                    "user_id": 4,
+                    "points": 0
+                }
+            ]
+        },
+        {
+            "race_number": 16,
+            "map_id": 16,
+            "players": [
+                {
+                    "user_id": 5,
+                    "points": 3
+                },
+                {
+                    "user_id": 6,
+                    "points": 2
+                },
+                {
+                    "user_id": 7,
+                    "points": 1
+                },
+                {
+                    "user_id": 8,
+                    "points": 0
+                }
+            ]
+        }
+    ]
+}
