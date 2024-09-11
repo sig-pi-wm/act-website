@@ -30,3 +30,14 @@ def data():
         "ACT 4",
     ]
     return render_template('data.html', seasons=seasons, data=data)
+
+@app.route('/input', methods=["GET", "POST"])
+def input():
+    if request.method == 'POST': 
+        # check that all fields are full
+        # try to upload to db
+        # if success, redirect to /data (where the ACT will now show up)
+        # else, redirect to form WITH DATA FILLED IN
+        pass
+    else:
+        return render_template('input.html')
