@@ -4,7 +4,6 @@ import os
 import glob
 import json
 import pprint
-import random
 
 class DAO:
 
@@ -44,6 +43,20 @@ class DAO:
             else:
                 self.__cursor.execute(query, values)
             self.__cnx.commit()
+        except mysql.connector.Error as err:
+            print("Failed query: {}".format(err))
+    
+    def __do_query_nocommit(self, query, values = None):
+        query = query.strip()
+        if query.endswith(';'):
+            query = query[:-1]
+        if query == '': # empty
+            return
+        try:
+            if values is None:
+                self.__cursor.execute(query)
+            else:
+                self.__cursor.execute(query, values)
         except mysql.connector.Error as err:
             print("Failed query: {}".format(err))
 
@@ -97,7 +110,41 @@ class DAO:
             t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid
         )
 
-        self.__do_query(query, values)
+        try:
+            self.__do_query(query, values)
+        except:
+            print("Failed to initialize ACT in DB. Not entering races.")
+            return
+
+        query = '''
+            INSERT INTO races (
+                act_id,
+                map_id,
+                race_number,
+                t1_player_uid, t2_player_uid, t3_player_uid, t4_player_uid,
+                t1_points, t2_points, t3_points, t4_points
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        '''
+
+        act_id = self.__cursor.lastrowid
+        
+        for race in data["races"]:
+            values = (
+                act_id,
+                race["map_id"],
+                race["race_number"],
+                race["players"][0]["user_id"], race["players"][1]["user_id"], race["players"][2]["user_id"], race["players"][3]["user_id"],
+                race["players"][0]["points"], race["players"][1]["points"], race["players"][2]["points"], race["players"][3]["points"]
+            )
+            try:
+                self.__do_query_nocommit(query, values)
+            except:
+                print("A race failed to enter. Rolling back to 0 races entered.")
+                self.__cnx.rollback()
+                return
+        
+        self.__cnx.commit()
 
     def enter_test_users(self):
         query = '''INSERT INTO users (username) VALUES (%s)'''
@@ -105,9 +152,6 @@ class DAO:
         for name in names:
             self.__do_query(query, [name])
             
-
-
-
 
 dao = DAO()
 with open("example-data.json") as file:
