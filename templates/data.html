@@ -7,7 +7,7 @@
 {% block main %}
 
 <div class="scorecards">
-    <form class="data-tabs" action="/data" method="POST">
+    <form class="data-tabs" action="/data" method="GET">
         {% for season in seasons %}
         <button type="submit" name="season" value="{{ season }}">{{ season }}</button>
         {% endfor %}
