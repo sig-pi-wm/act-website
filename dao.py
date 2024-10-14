@@ -13,11 +13,13 @@ class DAO:
             password=config.password,
             host=config.host,
         )
-        self.__cursor = self.__cnx.cursor()
+        self.__cursor = self.__cnx.cursor(dictionary=True)
         self.__build_from_schema("./database")
     
+
     def __del__(self):
         self.__cnx.close()
+
 
     def __build_from_schema(self, folder_path):
         # Get the list of all files in the folder and sort them alphabetically
@@ -31,6 +33,7 @@ class DAO:
                 for statement in statements:
                     self.__do_query(statement)
 
+
     def __do_query(self, query, values = None):
         query = query.strip()
         if query.endswith(';'):
@@ -42,10 +45,13 @@ class DAO:
                 self.__cursor.execute(query)
             else:
                 self.__cursor.execute(query, values)
+            result = self.__cursor.fetchall()
             self.__cnx.commit()
+            return [row for row in result]
         except mysql.connector.Error as err:
             print("Failed query: {}".format(err))
     
+
     def __do_query_nocommit(self, query, values = None):
         query = query.strip()
         if query.endswith(';'):
@@ -59,6 +65,72 @@ class DAO:
                 self.__cursor.execute(query, values)
         except mysql.connector.Error as err:
             print("Failed query: {}".format(err))
+
+
+    def __get_dates_for_season(self, season):
+        season_list = season.split()
+        season = season_list[0]
+        year = season_list[1]
+
+        if season == "Fall":
+            start = year + "-06-01"
+            end = year + "-12-31"
+        elif season == "Spring":
+            start = year + "-01-01"
+            end = year + "-05-31"
+        else:
+            print("Malformed season; returning for calendar year")
+            start = year + "-01-01"
+            end = year + "-12-31"
+
+        return start, end
+
+
+    def fetch_acts(self, season):
+        query = '''
+            SELECT act_id, act_date,
+                t1_score, t2_score, t3_score, t4_score,
+                t1_p1_uid, t1_p2_uid, t1_p3_uid, t1_p4_uid,
+                t2_p1_uid, t2_p2_uid, t2_p3_uid, t2_p4_uid,
+                t3_p1_uid, t3_p2_uid, t3_p3_uid, t3_p4_uid,
+                t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid,
+                (SELECT username FROM users WHERE user_id = t1_p1_uid) AS "t1_p1_uname",
+                (SELECT username FROM users WHERE user_id = t1_p2_uid) AS "t1_p2_uname",
+                (SELECT username FROM users WHERE user_id = t1_p3_uid) AS "t1_p3_uname",
+                (SELECT username FROM users WHERE user_id = t1_p4_uid) AS "t1_p4_uname",
+                (SELECT username FROM users WHERE user_id = t2_p1_uid) AS "t2_p1_uname",
+                (SELECT username FROM users WHERE user_id = t2_p2_uid) AS "t2_p2_uname",
+                (SELECT username FROM users WHERE user_id = t2_p3_uid) AS "t2_p3_uname",
+                (SELECT username FROM users WHERE user_id = t2_p4_uid) AS "t2_p4_uname",
+                (SELECT username FROM users WHERE user_id = t3_p1_uid) AS "t3_p1_uname",
+                (SELECT username FROM users WHERE user_id = t3_p2_uid) AS "t3_p2_uname",
+                (SELECT username FROM users WHERE user_id = t3_p3_uid) AS "t3_p3_uname",
+                (SELECT username FROM users WHERE user_id = t3_p4_uid) AS "t3_p4_uname",
+                (SELECT username FROM users WHERE user_id = t4_p1_uid) AS "t4_p1_uname",
+                (SELECT username FROM users WHERE user_id = t4_p2_uid) AS "t4_p2_uname",
+                (SELECT username FROM users WHERE user_id = t4_p3_uid) AS "t4_p3_uname",
+                (SELECT username FROM users WHERE user_id = t4_p4_uid) AS "t4_p4_uname"
+            FROM acts
+            WHERE act_date BETWEEN %s AND %s;
+        '''
+        acts_data = self.__do_query(query, values=self.__get_dates_for_season(season))
+
+        query = '''
+            SELECT * FROM races
+            WHERE act_id = %s
+        '''
+        acts = []
+
+        for act_data in acts_data:
+            races = self.__do_query(query, values=[act_data["act_id"]])
+            act = {
+                "data": act_data,
+                "races": races
+            }
+            acts.append(act)
+
+        return acts
+
 
     def enter_ACT(self, data):
         date = data["date"]
@@ -146,6 +218,7 @@ class DAO:
         
         self.__cnx.commit()
 
+
     def enter_test_users(self):
         query = '''INSERT INTO users (username) VALUES (%s)'''
         names = ["bert", "rolf", "eli", "manzari", "justin", "mcguinness", "katabian", "mehler"]
@@ -153,9 +226,10 @@ class DAO:
             self.__do_query(query, [name])
             
 
-dao = DAO()
-with open("example-data.json") as file:
-    data = json.load(file)
-pprint.pp(data)
-dao.enter_test_users()
-dao.enter_ACT(data)
+# dao = DAO()
+# with open("example-data.json") as file:
+#     data = json.load(file)
+# pprint.pp(data)
+# dao.enter_test_users()
+# dao.enter_ACT(data)
+# dao.fetch_data_for_season("Fall 2024")
