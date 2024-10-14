@@ -85,6 +85,17 @@ class DAO:
 
         return start, end
 
+    
+    def __calculate_scores(self, races):
+        # populate list in R->L, T->B order of the bottom-right scores
+        scores = []
+        for j in [4, 8, 12, 16]:
+            for team_index in range(1, 5):
+                scores.append(sum([race[f"t{team_index}_points"] for race in races[:j]]))
+
+        print(scores)
+        return scores
+
 
     def fetch_acts(self, season):
         query = '''
@@ -132,9 +143,11 @@ class DAO:
 
         for act_data in acts_data:
             races = self.__do_query(query, values=[act_data["act_id"]])
+            scores = self.__calculate_scores(races)
             act = {
                 "data": act_data,
-                "races": races
+                "races": races,
+                "scores": scores
             }
             acts.append(act)
 

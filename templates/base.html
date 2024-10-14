@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ACT {% block title %}{% endblock %}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/style.css">
-    </head>
-    <body>
-        <header class="body-header">
 
-        </header>
-        <nav class="sidenav">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/data">See data</a></li>
-                <li><a href="/input">Input ACT</a></li>
-            </ul>
-        </nav>
-        <main class="body-main">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ACT {% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <header class="body-header">
+        ACT Website
+    </header>
+    <nav class="sidenav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/data">See data</a></li>
+            <li><a href="/input">Input ACT</a></li>
+        </ul>
+    </nav>
+    <main class="body-main">
         {% block main %}{% endblock %}
-        </main>
-    </body>
+    </main>
+</body>
+
 </html>

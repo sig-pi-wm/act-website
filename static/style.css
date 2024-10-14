@@ -3,6 +3,7 @@
 body {
     margin: 0;
     height: 100vh;
+    font-family: 'Arial', sans-serif; /* Use Arial as the primary font */
 }
 
 .body-header {
@@ -10,7 +11,14 @@ body {
     top: 0;
     height: var(--header-height);
     width: 100%;
-    background-color: coral;
+    background-color: darkslateblue;
+
+    text-align: center;
+    font-size: 2rem;
+    color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .body-main {
@@ -20,7 +28,6 @@ body {
     height: calc(100vh - var(--header-height));
     width: calc(100% - var(--sidenav-width));
     overflow-y: auto;
-    background-color: aquamarine;
 }
 
 .sidenav {
@@ -28,7 +35,7 @@ body {
     top: var(--header-height);
     width: var(--sidenav-width);
     height: calc(100vh - var(--header-height));
-    background-color: fuchsia;
+    background-color: slateblue;
 }
 
 .data-tabs {
@@ -46,7 +53,6 @@ body {
     margin-bottom: 1.5rem;
     margin-left: 3rem;
     margin-right: 3rem;
-    background-color: bisque;
 }
 
 .scorecard {
@@ -54,8 +60,8 @@ body {
     height: 32rem;
     border-style: solid;
     border-width: thick;
-    border-color: blue;
-    background-color: darksalmon;
+    border-color: darkslateblue;
+    background-color: lightgrey;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
 }
