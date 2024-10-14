@@ -68,3 +68,19 @@ body {
         background-color: grey;
     }
 }
+
+.p1-indicator {
+    color: blue;
+}
+
+.p2-indicator {
+    color: red;
+}
+
+.p3-indicator {
+    color: green;
+}
+
+.p4-indicator {
+    color: yellow;
+}

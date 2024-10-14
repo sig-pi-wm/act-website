@@ -15,9 +15,133 @@
 
     <h1>{{season}} Data</h1>
     {% for act in data %}
-    <div class="scorecard">
-        {{ act }}
-    </div>
+    <table class="scorecard">
+        <thead>
+            <tr>
+                <th>{{ act.data.act_date }}</th>
+                <th>
+                    <div class="teammates">
+                        <span class="p1-indicator">{{ act.data.t1_p1_uname }}</span>
+                        {% if act.data.t1_p2_uname %}
+                            <span class="p2-indicator">{{ act.data.t1_p2_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t1_p3_uname %}
+                            <span class="p3-indicator">{{ act.data.t1_p3_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t1_p4_uname %}
+                            <span class="p4-indicator">{{ act.data.t1_p4_uname }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="character">
+                        {{ act.data.t1_character }}
+                    </div>
+                </th>
+                <th>
+                    <div class="teammates">
+                        <span class="p1-indicator">{{ act.data.t2_p1_uname }}</span>
+                        {% if act.data.t2_p2_uname %}
+                            <span class="p2-indicator">{{ act.data.t2_p2_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t2_p3_uname %}
+                            <span class="p3-indicator">{{ act.data.t2_p3_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t2_p4_uname %}
+                            <span class="p4-indicator">{{ act.data.t2_p4_uname }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="character">
+                        {{ act.data.t2_character }}
+                    </div>
+                </th>
+                <th>
+                    <div class="teammates">
+                        <span class="p1-indicator">{{ act.data.t3_p1_uname }}</span>
+                        {% if act.data.t3_p2_uname %}
+                            <span class="p2-indicator">{{ act.data.t3_p2_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t3_p3_uname %}
+                            <span class="p3-indicator">{{ act.data.t3_p3_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t3_p4_uname %}
+                            <span class="p4-indicator">{{ act.data.t3_p4_uname }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="character">
+                        {{ act.data.t3_character }}
+                    </div>
+                </th>
+                <th>
+                    <div class="teammates">
+                        <span class="p1-indicator">{{ act.data.t4_p1_uname }}</span>
+                        {% if act.data.t4_p2_uname %}
+                            <span class="p2-indicator">{{ act.data.t4_p2_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t4_p3_uname %}
+                            <span class="p3-indicator">{{ act.data.t4_p3_uname }}</span>
+                        {% endif %}
+                        {% if act.data.t4_p4_uname %}
+                            <span class="p4-indicator">{{ act.data.t4_p4_uname }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="character">
+                        {{ act.data.t4_character }}
+                    </div>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for j in [0, 4, 8, 12] %}
+                <tr>
+                    <td>
+                        {% for i in range(j, j + 4) %}
+                            <div>{{ act.races[i].map_name }}</div>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for i in range(j, j + 4) %}
+                            <span class="
+                                {% if act.races[i].t1_player_uid == act.data.t1_p1_uid %}p1-indicator{% endif %}
+                                {% if act.races[i].t1_player_uid == act.data.t1_p2_uid %}p2-indicator{% endif %}
+                                {% if act.races[i].t1_player_uid == act.data.t1_p3_uid %}p3-indicator{% endif %}
+                                {% if act.races[i].t1_player_uid == act.data.t1_p4_uid %}p4-indicator{% endif %}
+                            ">{{ act.races[i].t1_points }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for i in range(j, j + 4) %}
+                            <span class="
+                                {% if act.races[i].t2_player_uid == act.data.t2_p1_uid %}p1-indicator{% endif %}
+                                {% if act.races[i].t2_player_uid == act.data.t2_p2_uid %}p2-indicator{% endif %}
+                                {% if act.races[i].t2_player_uid == act.data.t2_p3_uid %}p3-indicator{% endif %}
+                                {% if act.races[i].t2_player_uid == act.data.t2_p4_uid %}p4-indicator{% endif %}
+                            ">{{ act.races[i].t2_points }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for i in range(j, j + 4) %}
+                            <span class="
+                                {% if act.races[i].t3_player_uid == act.data.t3_p1_uid %}p1-indicator{% endif %}
+                                {% if act.races[i].t3_player_uid == act.data.t3_p2_uid %}p2-indicator{% endif %}
+                                {% if act.races[i].t3_player_uid == act.data.t3_p3_uid %}p3-indicator{% endif %}
+                                {% if act.races[i].t3_player_uid == act.data.t3_p4_uid %}p4-indicator{% endif %}
+                            ">{{ act.races[i].t3_points }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for i in range(j, j + 4) %}
+                            <span class="
+                                {% if act.races[i].t4_player_uid == act.data.t4_p1_uid %}p1-indicator{% endif %}
+                                {% if act.races[i].t4_player_uid == act.data.t4_p2_uid %}p2-indicator{% endif %}
+                                {% if act.races[i].t4_player_uid == act.data.t4_p3_uid %}p3-indicator{% endif %}
+                                {% if act.races[i].t4_player_uid == act.data.t4_p4_uid %}p4-indicator{% endif %}
+                            ">{{ act.races[i].t4_points }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% endfor %}
 </div>
 
