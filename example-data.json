@@ -3,6 +3,7 @@
     "teams": [
         {
             "score": 48,
+            "character": "Funky Kong",
             "players": [
                 {
                     "user_id": 1
@@ -20,6 +21,7 @@
         },
         {
             "score": 32,
+            "character": "Daisy",
             "players": [
                 {
                     "user_id": 2
@@ -37,6 +39,7 @@
         },
         {
             "score": 16,
+            "character": "Medium Mii",
             "players": [
                 {
                     "user_id": 3
@@ -54,6 +57,7 @@
         },
         {
             "score": 0,
+            "character": "Diddy Kong",
             "players": [
                 {
                     "user_id": 4

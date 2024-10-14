@@ -20,16 +20,9 @@ def data():
         season = "Fall 2024"
     print(season)
     
-    #TODO fetch both from DB
     seasons = ["Fall 2024", "Spring 2023", "Fall 2023"] 
-    data = [
-        season + " Data...",
-        "ACT 1",
-        "ACT 2",
-        "ACT 3",
-        "ACT 4",
-    ]
-    return render_template('data.html', seasons=seasons, data=data)
+    data = dao.fetch_acts(season)
+    return render_template('data.html', seasons=seasons, data=data, season=season)
 
 @app.route('/input', methods=["GET", "POST"])
 def input():
@@ -41,3 +34,7 @@ def input():
         pass
     else:
         return render_template('input.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
