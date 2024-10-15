@@ -19,12 +19,22 @@ class DAO:
     
 
     def __do_query(self, query, values = None):
-        cnx = mysql.connector.connect(
-            user=config.user,
-            password=config.password,
-            host=config.host,
-            database=config.database,
-        )
+        try:
+            cnx = mysql.connector.connect(
+                user=config.user,
+                password=config.password,
+                host=config.host,
+                database=config.database,
+            )
+        except Exception as e:
+            print("Connection Error:", e)
+            print("Reattempting without specifying database")
+            # If database is uninitialized, the .connect method fails when specifying it
+            cnx = mysql.connector.connect(
+                user=config.user,
+                password=config.password,
+                host=config.host,
+            )
         cursor = cnx.cursor(dictionary=True)
         query = query.strip()
         if query.endswith(';'):
@@ -147,6 +157,16 @@ class DAO:
         '''
 
         return self.__do_query(query)
+    
+
+    def get_usernames(self):
+        query = 'SELECT username FROM users;'
+        return self.__do_query(query)
+
+
+    def get_team_user_ids(self, team_usernames):
+        query = 'SELECT user_id FROM users WHERE username = %s'
+        return [self.__do_query(query, [username]) for username in team_usernames]
 
 
     def enter_ACT(self, data):
@@ -255,13 +275,93 @@ class DAO:
 
 
     def enter_test_users(self):
-        query = '''INSERT INTO users (username) VALUES (%s)'''
-        names = ["bert", "rolf", "eli", "manzari", "justin", "mcguinness", "katabian", "mehler"]
-        for name in names:
-            self.__do_query(query, [name])
+        query = '''
+            INSERT IGNORE INTO users (username) VALUES
+            ('Abishek Samuel'),
+            ('Aidan McLaren'),
+            ('Anagh Sivadasan'),
+            ('Andrew Lumelleau'),
+            ('Asim Asar'),
+            ('Ben Olshaker'),
+            ('Benjamin Orye'),
+            ('Benny Edelson'),
+            ('Blake Swartz'),
+            ('Brandon Marlow'),
+            ('Brennen Fender'),
+            ('Brian Simmons'),
+            ('Bryce Cloonan'),
+            ('Calvin Farrell'),
+            ('Charlie Unice'),
+            ('Chase Cassellius'),
+            ('Colin Walls'),
+            ('Connor Steele'),
+            ('Cooper Cole'),
+            ('Danny Piper'),
+            ('Eli Benesh'),
+            ('Elliott White'),
+            ('Ethan Wilson'),
+            ('Garrett Robertson'),
+            ('George Solari'),
+            ('Hays Talley'),
+            ('Jack Manzari'),
+            ('Jack McGuinness'),
+            ('Jack Schmatz'),
+            ('Jalmari Paasonen'),
+            ('James Hammond'),
+            ('James Long'),
+            ('Jeff Newton'),
+            ('Jeremy Barry'),
+            ('Joe Sullivan'),
+            ('Joshua Easterly'),
+            ('Justin Cresent'),
+            ('Kai Genieser'),
+            ('Kaiden Youssefieh'),
+            ('Kane Goodman'),
+            ('KJ Dowling'),
+            ('Liam Sciple'),
+            ('Lucas Teuber'),
+            ('Matthew Boothby'),
+            ('Matthew Peterson'),
+            ('Matthew Rebein'),
+            ('Max Gunderson'),
+            ('Michael Mehler'),
+            ('Miki Fok'),
+            ('Nate Kim'),
+            ('Nikhil Kokkirala'),
+            ('Noah Caruso'),
+            ('Oliver Sun'),
+            ('Owen Emge'),
+            ('Pablo Troop'),
+            ('Quinn Bailey'),
+            ('Rashad Amirullah'),
+            ('Reed Bram'),
+            ('Richie De Luna'),
+            ('Rolf Hsu'),
+            ('Ryan Garwood'),
+            ('Ryan Marino'),
+            ('Ryan Taylor'),
+            ('Sam Burgunder'),
+            ('Sami Fuleihan'),
+            ('Samuel Harrington'),
+            ('Sebastian Parker'),
+            ('Soren Zimmer'),
+            ('Spencer Daniel'),
+            ('Tucker Peters'),
+            ('Tuscan Mulinazzi'),
+            ('Waylon Merkel'),
+            ('Will Katabian'),
+            ('Will Wright'),
+            ('William Lautenbach'),
+            ('Zach Hooven'),
+            ('Zachary Moreno'),
+            ('Elijah Benesh'),
+            ('Matthew Berthoud'),
+            ('Zack Hammond');
+        '''
+        self.__do_query(query)
             
 # db = DAO()
 # with open("example-data.json") as file:
 #     data = json.load(file)
-# dao.enter_test_users()
+# # db.enter_test_users()
 # db.enter_ACT(data)
