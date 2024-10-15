@@ -14,16 +14,9 @@ class DAO:
             host=config.host,
         )
         self.__cursor = self.__cnx.cursor(dictionary=True)
-        self.__build_from_schema("./database")
-    
 
-    def __del__(self):
-        self.__cnx.close()
-
-
-    def __build_from_schema(self, folder_path):
         # Get the list of all files in the folder and sort them alphabetically
-        files = sorted(glob.glob(os.path.join(folder_path, '*')))
+        files = sorted(glob.glob(os.path.join(config.database_dir, '*')))
 
         for file in files:
             with open(file, 'r') as f:
@@ -32,6 +25,10 @@ class DAO:
                 statements = content.split(';')
                 for statement in statements:
                     self.__do_query(statement)
+    
+
+    def __del__(self):
+        self.__cnx.close()
 
 
     def __do_query(self, query, values = None):
