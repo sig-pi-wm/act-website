@@ -12,6 +12,7 @@ class DAO:
             user=config.user,
             password=config.password,
             host=config.host,
+            database=config.database,
         )
         self.__cursor = self.__cnx.cursor(dictionary=True)
 
@@ -89,8 +90,6 @@ class DAO:
         for j in [4, 8, 12, 16]:
             for team_index in range(1, 5):
                 scores.append(sum([race[f"t{team_index}_points"] for race in races[:j]]))
-
-        print(scores)
         return scores
 
 
