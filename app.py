@@ -30,7 +30,8 @@ def input():
         # else, redirect to form WITH DATA FILLED IN
         pass
     else:
-        return render_template('input.html')
+        characters = [c["character_name"] for c in dao.get_characters()]
+        return render_template('input.html', characters=characters)
 
 
 if __name__ == '__main__':

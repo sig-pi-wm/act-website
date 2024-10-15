@@ -130,6 +130,23 @@ class DAO:
             acts.append(act)
 
         return acts
+    
+
+    def get_characters(self):
+        # orders by most frequently used characters
+        query = '''
+            SELECT character_name
+            FROM characters
+            ORDER BY (
+                SELECT COUNT(*)
+                FROM acts
+                WHERE characters.character_name IN (
+                    t1_character, t2_character, t3_character, t4_character
+                )
+            ) DESC;
+        '''
+
+        return self.__do_query(query)
 
 
     def enter_ACT(self, data):
