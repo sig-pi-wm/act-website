@@ -3,67 +3,48 @@ import config as config
 import os
 import glob
 import json
-import pprint
 
 class DAO:
 
     def __init__(self):
-        self.__cnx = mysql.connector.connect(
-            user=config.user,
-            password=config.password,
-            host=config.host,
-            database=config.database,
-        )
-        self.__cursor = self.__cnx.cursor(dictionary=True)
-
         # Get the list of all files in the folder and sort them alphabetically
         files = sorted(glob.glob(os.path.join(config.database_dir, '*')))
 
         for file in files:
             with open(file, 'r') as f:
-                print(f"{file}:")
                 content = f.read()
                 statements = content.split(';')
                 for statement in statements:
                     self.__do_query(statement)
     
 
-    def __del__(self):
-        self.__cnx.close()
-
-
     def __do_query(self, query, values = None):
+        cnx = mysql.connector.connect(
+            user=config.user,
+            password=config.password,
+            host=config.host,
+            database=config.database,
+        )
+        cursor = cnx.cursor(dictionary=True)
         query = query.strip()
         if query.endswith(';'):
             query = query[:-1]
         if query == '': # empty
+            cnx.close()
             return
         try:
             if values is None:
-                self.__cursor.execute(query)
+                cursor.execute(query)
             else:
-                self.__cursor.execute(query, values)
-            result = self.__cursor.fetchall()
-            self.__cnx.commit()
+                cursor.execute(query, values)
+            result = cursor.fetchall()
+            cnx.commit()
+            cnx.close()
             return [row for row in result]
         except mysql.connector.Error as err:
             print("Failed query: {}".format(err))
+            cnx.close()
     
-
-    def __do_query_nocommit(self, query, values = None):
-        query = query.strip()
-        if query.endswith(';'):
-            query = query[:-1]
-        if query == '': # empty
-            return
-        try:
-            if values is None:
-                self.__cursor.execute(query)
-            else:
-                self.__cursor.execute(query, values)
-        except mysql.connector.Error as err:
-            print("Failed query: {}".format(err))
-
 
     def __get_dates_for_season(self, season):
         season_list = season.split()
@@ -138,7 +119,8 @@ class DAO:
         acts = []
 
         for act_data in acts_data:
-            races = self.__do_query(query, values=[act_data["act_id"]])
+            act_id = act_data["act_id"]
+            races = self.__do_query(query, values=[act_id])
             scores = self.__calculate_scores(races)
             act = {
                 "data": act_data,
@@ -151,6 +133,14 @@ class DAO:
 
 
     def enter_ACT(self, data):
+        cnx = mysql.connector.connect(
+            user=config.user,
+            password=config.password,
+            host=config.host,
+            database=config.database,
+        )
+        cursor = cnx.cursor(dictionary=True)
+
         date = data["date"]
 
         t1_score = data["teams"][0]["score"]
@@ -196,7 +186,6 @@ class DAO:
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         '''
 
-        # Execute the query with the values
         values = (
             date, 
             t1_score, t2_score, t3_score, t4_score,
@@ -208,11 +197,15 @@ class DAO:
         )
 
         try:
-            self.__do_query(query, values)
-        except:
-            print("Failed to initialize ACT in DB. Not entering races.")
+            cursor.execute(query, values)
+        except mysql.connector.Error as err:
+            print("Failed to enter ACT, not attempting to enter races: {}".format(err))
+            cnx.rollback()
+            cnx.close()
             return
 
+        act_id = cursor.lastrowid
+        
         query = '''
             INSERT INTO races (
                 act_id,
@@ -224,8 +217,6 @@ class DAO:
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         '''
 
-        act_id = self.__cursor.lastrowid
-        
         for race in data["races"]:
             values = (
                 act_id,
@@ -235,13 +226,15 @@ class DAO:
                 race["players"][0]["points"], race["players"][1]["points"], race["players"][2]["points"], race["players"][3]["points"]
             )
             try:
-                self.__do_query_nocommit(query, values)
+                query = query.strip()
+                cursor.execute(query, values)
             except:
                 print("A race failed to enter. Rolling back to 0 races entered.")
-                self.__cnx.rollback()
+                cnx.rollback()
+                cnx.close()
                 return
-        
-        self.__cnx.commit()
+        cnx.commit()
+        cnx.close()
 
 
     def enter_test_users(self):
@@ -250,8 +243,8 @@ class DAO:
         for name in names:
             self.__do_query(query, [name])
             
-# dao = DAO()
+# db = DAO()
 # with open("example-data.json") as file:
 #     data = json.load(file)
 # dao.enter_test_users()
-# dao.enter_ACT(data)
+# db.enter_ACT(data)
