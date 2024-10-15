@@ -1,47 +1,65 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Input
+Input
 {% endblock %}
 
 {% block main %}
-<table class="act-input">
-    <tr>
-        <td>
-            Date
-        </td>
-        <td>{% block team %}{% endblock %}</td>
-        <td>{% block team %}{% endblock %}</td>
-        <td>{% block team %}{% endblock %}</td>
-        <td>{% block team %}{% endblock %}</td>
-    </tr>
-    <tr>
-        <td>Cup 1</td>
-        <td>Team 1</td>
-        <td>Team 2</td>
-        <td>Team 3</td>
-        <td>Team 4</td>
-    </tr>
-    <tr>
-        <td>Cup 2</td>
-        <td>Team 1</td>
-        <td>Team 2</td>
-        <td>Team 3</td>
-        <td>Team 4</td>
-    </tr>
-    <tr>
-        <td>Cup 3</td>
-        <td>Team 1</td>
-        <td>Team 2</td>
-        <td>Team 3</td>
-        <td>Team 4</td>
-    </tr>
-    <tr>
-        <td>Cup 4</td>
-        <td>Team 1</td>
-        <td>Team 2</td>
-        <td>Team 3</td>
-        <td>Team 4</td>
-    </tr>
-</table>
+<form>
+    <table class="act-input">
+        <tr>
+            <td>
+                <div>
+                    <input type="date" />
+                </div>
+                <div>
+                    <input id="top-cups-radio" name="top-or-bottom-cups" type="radio" />
+                    <label for="top-cups-radio" >Top Cups</label>
+                </div>
+                <div>
+                    <input id="bottom-cups-radio" name="top-or-bottom-cups" type="radio" />
+                    <label for="bottom-cups-radio" >Bottom Cups</label>
+                </div>
+            </td>
+            {% for team_number in range(1,5) %}
+            <td>
+                <div>
+                    <input id="t{{ team_number }}-character" placeholder="Character" />
+                </div>
+                <div>
+                    <input id="t{{ team_number }}-p1" name="t{{ team_number }}-player-indicator" type="radio" />
+                    <label for="t{{ team_number }}-p1" ><input placeholder="Username" /></label>
+                </div>
+                <div>
+                    <input id="t{{ team_number }}-p2" name="t{{ team_number }}-player-indicator" type="radio" />
+                    <label for="t{{ team_number }}-p2" ><input placeholder="Username" /></label>
+                </div>
+            </td>
+            {% endfor %}
+        </tr>
+        {% for cup_offset in range(0,16,4) %}
+        <tr>
+            <td>
+                <!-- {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
+                <div>{{ race_number }}.</div>
+                {% endfor %} -->
+            </td>
+            {% for team_number in range(1,5) %}
+            <td>
+                <div>
+                    {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
+                    <input id="t{{ team_number }}-r{{ race_number }}-score" type="number" min="0" max="3" />
+                    {% endfor %}
+                </div>
+                <div>
+                    {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
+                    <label for="t{{ team_number }}-r{{ race_number }}-score"><input type="checkbox" /></label>
+                    {% endfor %}
+                </div>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</form>
 {% endblock %}
