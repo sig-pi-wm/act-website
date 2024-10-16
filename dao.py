@@ -190,25 +190,25 @@ class DAO:
         t3_character = data["teams"][2]["character"]
         t4_character = data["teams"][3]["character"]
 
-        t1_p1_uid = data["teams"][0]["players"][0]["user_id"]
-        t1_p2_uid = data["teams"][0]["players"][1]["user_id"]
-        t1_p3_uid = data["teams"][0]["players"][2]["user_id"]
-        t1_p4_uid = data["teams"][0]["players"][3]["user_id"]
+        t1_p1_uid = data["teams"][0]["players"][0]["username"]
+        t1_p2_uid = data["teams"][0]["players"][1]["username"]
+        t1_p3_uid = data["teams"][0]["players"][2]["username"]
+        t1_p4_uid = data["teams"][0]["players"][3]["username"]
 
-        t2_p1_uid = data["teams"][1]["players"][0]["user_id"]
-        t2_p2_uid = data["teams"][1]["players"][1]["user_id"]
-        t2_p3_uid = data["teams"][1]["players"][2]["user_id"]
-        t2_p4_uid = data["teams"][1]["players"][3]["user_id"]
+        t2_p1_uid = data["teams"][1]["players"][0]["username"]
+        t2_p2_uid = data["teams"][1]["players"][1]["username"]
+        t2_p3_uid = data["teams"][1]["players"][2]["username"]
+        t2_p4_uid = data["teams"][1]["players"][3]["username"]
 
-        t3_p1_uid = data["teams"][2]["players"][0]["user_id"]
-        t3_p2_uid = data["teams"][2]["players"][1]["user_id"]
-        t3_p3_uid = data["teams"][2]["players"][2]["user_id"]
-        t3_p4_uid = data["teams"][2]["players"][3]["user_id"]
+        t3_p1_uid = data["teams"][2]["players"][0]["username"]
+        t3_p2_uid = data["teams"][2]["players"][1]["username"]
+        t3_p3_uid = data["teams"][2]["players"][2]["username"]
+        t3_p4_uid = data["teams"][2]["players"][3]["username"]
 
-        t4_p1_uid = data["teams"][3]["players"][0]["user_id"]
-        t4_p2_uid = data["teams"][3]["players"][1]["user_id"]
-        t4_p3_uid = data["teams"][3]["players"][2]["user_id"]
-        t4_p4_uid = data["teams"][3]["players"][3]["user_id"]
+        t4_p1_uid = data["teams"][3]["players"][0]["username"]
+        t4_p2_uid = data["teams"][3]["players"][1]["username"]
+        t4_p3_uid = data["teams"][3]["players"][2]["username"]
+        t4_p4_uid = data["teams"][3]["players"][3]["username"]
 
         query = '''
             INSERT INTO acts (
@@ -220,7 +220,24 @@ class DAO:
                 t3_p1_uid, t3_p2_uid, t3_p3_uid, t3_p4_uid,
                 t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s)
+            )
         '''
 
         values = (
@@ -251,22 +268,27 @@ class DAO:
                 t1_player_uid, t2_player_uid, t3_player_uid, t4_player_uid,
                 t1_points, t2_points, t3_points, t4_points
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s,
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+            %s, %s, %s, %s)
         '''
 
         for race in data["races"]:
             values = (
                 act_id,
-                race["map_id"],
-                race["race_number"],
-                race["players"][0]["user_id"], race["players"][1]["user_id"], race["players"][2]["user_id"], race["players"][3]["user_id"],
+                race["mapId"],
+                race["raceNumber"],
+                race["players"][0]["username"], race["players"][1]["username"], race["players"][2]["username"], race["players"][3]["username"],
                 race["players"][0]["points"], race["players"][1]["points"], race["players"][2]["points"], race["players"][3]["points"]
             )
             try:
                 query = query.strip()
                 cursor.execute(query, values)
             except:
-                print("A race failed to enter. Rolling back to 0 races entered.")
+                print("A race failed to enter. Canceling ACT entry. ")
                 cnx.rollback()
                 cnx.close()
                 return

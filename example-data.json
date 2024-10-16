@@ -2,20 +2,20 @@
     "date": "2024-09-11",
     "teams": [
         {
-            "score": 48,
+           "score": 48,
             "character": "Funky Kong",
             "players": [
                 {
-                    "user_id": 1
+                    "username": "Abishek Samuel"
                 },
                 {
-                    "user_id": 5
+                    "username": "Abishek Samuel"
                 },
                 {
-                    "user_id": null
+                    "username": "Matthew Berthoud"
                 },
                 {
-                    "user_id": null
+                    "username": "Matthew Berthoud"
                 }
             ]
         },
@@ -24,16 +24,16 @@
             "character": "Daisy",
             "players": [
                 {
-                    "user_id": 2
+                    "username": "Elijah Benesh"
                 },
                 {
-                    "user_id": 6
+                    "username": "Elijah Benesh"
                 },
                 {
-                    "user_id": null
+                    "username": "Matthew Berthoud"
                 },
                 {
-                    "user_id": null
+                    "username": "Matthew Berthoud"
                 }
             ]
         },
@@ -42,16 +42,16 @@
             "character": "Medium Mii",
             "players": [
                 {
-                    "user_id": 3
+                    "username": "Elijah Benesh"
                 },
                 {
-                    "user_id": 7
+                    "username": "Elijah Benesh"
                 },
                 {
-                    "user_id": null
+                    "username": "Matthew Berthoud"
                 },
                 {
-                    "user_id": null
+                    "username": "Matthew Berthoud"
                 }
             ]
         },
@@ -60,369 +60,369 @@
             "character": "Diddy Kong",
             "players": [
                 {
-                    "user_id": 4
+                    "username": "Elijah Benesh"
                 },
                 {
-                    "user_id": 8
+                    "username": "Matthew Berthoud"
                 },
                 {
-                    "user_id": null
+                    "username": "Elijah Benesh"
                 },
                 {
-                    "user_id": null
+                    "username": "Matthew Berthoud"
                 }
             ]
         }
     ],
     "races": [
         {
-            "race_number": 1,
-            "map_id": 1,
+            "raceNumber": 1,
+            "mapId": 1,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Matthew Berthoud",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Matthew Berthoud",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 2,
-            "map_id": 2,
+            "raceNumber": 2,
+            "mapId": 2,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Abishek Samuel",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Matthew Berthoud",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 3,
-            "map_id": 3,
+            "raceNumber": 3,
+            "mapId": 3,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 4,
-            "map_id": 4,
+            "raceNumber": 4,
+            "mapId": 4,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 5,
-            "map_id": 5,
+            "raceNumber": 5,
+            "mapId": 5,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 6,
-            "map_id": 6,
+            "raceNumber": 6,
+            "mapId": 6,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 7,
-            "map_id": 7,
+            "raceNumber": 7,
+            "mapId": 7,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 8,
-            "map_id": 8,
+            "raceNumber": 8,
+            "mapId": 8,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 9,
-            "map_id": 9,
+            "raceNumber": 9,
+            "mapId": 9,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 10,
-            "map_id": 10,
+            "raceNumber": 10,
+            "mapId": 10,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 11,
-            "map_id": 11,
+            "raceNumber": 11,
+            "mapId": 11,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 12,
-            "map_id": 12,
+            "raceNumber": 12,
+            "mapId": 12,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 13,
-            "map_id": 13,
+            "raceNumber": 13,
+            "mapId": 13,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 14,
-            "map_id": 14,
+            "raceNumber": 14,
+            "mapId": 14,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 15,
-            "map_id": 15,
+            "raceNumber": 15,
+            "mapId": 15,
             "players": [
                 {
-                    "user_id": 1,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 2,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 3,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 4,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
         },
         {
-            "race_number": 16,
-            "map_id": 16,
+            "raceNumber": 16,
+            "mapId": 16,
             "players": [
                 {
-                    "user_id": 5,
+                    "username": "Matthew Berthoud",
                     "points": 3
                 },
                 {
-                    "user_id": 6,
+                    "username": "Elijah Benesh",
                     "points": 2
                 },
                 {
-                    "user_id": 7,
+                    "username": "Elijah Benesh",
                     "points": 1
                 },
                 {
-                    "user_id": 8,
+                    "username": "Matthew Berthoud",
                     "points": 0
                 }
             ]
