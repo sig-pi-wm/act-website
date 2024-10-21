@@ -15,10 +15,22 @@ body {
 
     text-align: center;
     font-size: 2rem;
-    color: lightgray;
+
     display: flex;
     align-items: center;
-    justify-content: center;
+}
+
+.menu-icon {
+    height: var(--header-height);
+    width: var(--header-height);
+}
+
+.website-title {
+    a {
+        text-decoration: none;
+        color: lightgray;
+    }
+    flex-grow: 1;
 }
 
 .body-main {
