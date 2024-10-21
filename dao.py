@@ -19,12 +19,22 @@ class DAO:
     
 
     def __do_query(self, query, values = None):
-        cnx = mysql.connector.connect(
-            user=config.user,
-            password=config.password,
-            host=config.host,
-            database=config.database,
-        )
+        try:
+            cnx = mysql.connector.connect(
+                user=config.user,
+                password=config.password,
+                host=config.host,
+                database=config.database,
+            )
+        except Exception as e:
+            print("Connection Error:", e)
+            print("Reattempting without specifying database")
+            # If database is uninitialized, the .connect method fails when specifying it
+            cnx = mysql.connector.connect(
+                user=config.user,
+                password=config.password,
+                host=config.host,
+            )
         cursor = cnx.cursor(dictionary=True)
         query = query.strip()
         if query.endswith(';'):
@@ -130,6 +140,33 @@ class DAO:
             acts.append(act)
 
         return acts
+    
+
+    def get_characters(self):
+        # orders by most frequently used characters
+        query = '''
+            SELECT character_name
+            FROM characters
+            ORDER BY (
+                SELECT COUNT(*)
+                FROM acts
+                WHERE characters.character_name IN (
+                    t1_character, t2_character, t3_character, t4_character
+                )
+            ) DESC;
+        '''
+
+        return self.__do_query(query)
+    
+
+    def get_usernames(self):
+        query = 'SELECT username FROM users;'
+        return self.__do_query(query)
+
+
+    def get_team_user_ids(self, team_usernames):
+        query = 'SELECT user_id FROM users WHERE username = %s'
+        return [self.__do_query(query, [username]) for username in team_usernames]
 
 
     def enter_ACT(self, data):
@@ -153,25 +190,25 @@ class DAO:
         t3_character = data["teams"][2]["character"]
         t4_character = data["teams"][3]["character"]
 
-        t1_p1_uid = data["teams"][0]["players"][0]["user_id"]
-        t1_p2_uid = data["teams"][0]["players"][1]["user_id"]
-        t1_p3_uid = data["teams"][0]["players"][2]["user_id"]
-        t1_p4_uid = data["teams"][0]["players"][3]["user_id"]
+        t1_p1_uid = data["teams"][0]["players"][0]["username"]
+        t1_p2_uid = data["teams"][0]["players"][1]["username"]
+        t1_p3_uid = data["teams"][0]["players"][2]["username"]
+        t1_p4_uid = data["teams"][0]["players"][3]["username"]
 
-        t2_p1_uid = data["teams"][1]["players"][0]["user_id"]
-        t2_p2_uid = data["teams"][1]["players"][1]["user_id"]
-        t2_p3_uid = data["teams"][1]["players"][2]["user_id"]
-        t2_p4_uid = data["teams"][1]["players"][3]["user_id"]
+        t2_p1_uid = data["teams"][1]["players"][0]["username"]
+        t2_p2_uid = data["teams"][1]["players"][1]["username"]
+        t2_p3_uid = data["teams"][1]["players"][2]["username"]
+        t2_p4_uid = data["teams"][1]["players"][3]["username"]
 
-        t3_p1_uid = data["teams"][2]["players"][0]["user_id"]
-        t3_p2_uid = data["teams"][2]["players"][1]["user_id"]
-        t3_p3_uid = data["teams"][2]["players"][2]["user_id"]
-        t3_p4_uid = data["teams"][2]["players"][3]["user_id"]
+        t3_p1_uid = data["teams"][2]["players"][0]["username"]
+        t3_p2_uid = data["teams"][2]["players"][1]["username"]
+        t3_p3_uid = data["teams"][2]["players"][2]["username"]
+        t3_p4_uid = data["teams"][2]["players"][3]["username"]
 
-        t4_p1_uid = data["teams"][3]["players"][0]["user_id"]
-        t4_p2_uid = data["teams"][3]["players"][1]["user_id"]
-        t4_p3_uid = data["teams"][3]["players"][2]["user_id"]
-        t4_p4_uid = data["teams"][3]["players"][3]["user_id"]
+        t4_p1_uid = data["teams"][3]["players"][0]["username"]
+        t4_p2_uid = data["teams"][3]["players"][1]["username"]
+        t4_p3_uid = data["teams"][3]["players"][2]["username"]
+        t4_p4_uid = data["teams"][3]["players"][3]["username"]
 
         query = '''
             INSERT INTO acts (
@@ -183,7 +220,24 @@ class DAO:
                 t3_p1_uid, t3_p2_uid, t3_p3_uid, t3_p4_uid,
                 t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s)
+            )
         '''
 
         values = (
@@ -214,22 +268,27 @@ class DAO:
                 t1_player_uid, t2_player_uid, t3_player_uid, t4_player_uid,
                 t1_points, t2_points, t3_points, t4_points
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s,
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+                (SELECT user_id FROM users WHERE username = %s),
+            %s, %s, %s, %s)
         '''
 
         for race in data["races"]:
             values = (
                 act_id,
-                race["map_id"],
-                race["race_number"],
-                race["players"][0]["user_id"], race["players"][1]["user_id"], race["players"][2]["user_id"], race["players"][3]["user_id"],
+                race["mapId"],
+                race["raceNumber"],
+                race["players"][0]["username"], race["players"][1]["username"], race["players"][2]["username"], race["players"][3]["username"],
                 race["players"][0]["points"], race["players"][1]["points"], race["players"][2]["points"], race["players"][3]["points"]
             )
             try:
                 query = query.strip()
                 cursor.execute(query, values)
             except:
-                print("A race failed to enter. Rolling back to 0 races entered.")
+                print("A race failed to enter. Canceling ACT entry. ")
                 cnx.rollback()
                 cnx.close()
                 return
@@ -238,13 +297,98 @@ class DAO:
 
 
     def enter_test_users(self):
-        query = '''INSERT INTO users (username) VALUES (%s)'''
-        names = ["bert", "rolf", "eli", "manzari", "justin", "mcguinness", "katabian", "mehler"]
-        for name in names:
-            self.__do_query(query, [name])
+        query = '''
+            INSERT IGNORE INTO users (username) VALUES
+        -- In the frat as of Oct 2024
+            ('Abishek Samuel'),
+            ('Aidan McLaren'),
+            ('Anagh Sivadasan'),
+            ('Andrew Lumelleau'),
+            ('Asim Asar'),
+            ('Ben Olshaker'),
+            ('Benjamin Orye'),
+            ('Benny Edelson'),
+            ('Blake Swartz'),
+            ('Brandon Marlow'),
+            ('Brennen Fender'),
+            ('Brian Simmons'),
+            ('Bryce Cloonan'),
+            ('Calvin Farrell'),
+            ('Charlie Unice'),
+            ('Chase Cassellius'),
+            ('Colin Walls'),
+            ('Connor Steele'),
+            ('Cooper Cole'),
+            ('Danny Piper'),
+            ('Eli Benesh'),
+            ('Elliott White'),
+            ('Ethan Wilson'),
+            ('Garrett Robertson'),
+            ('George Solari'),
+            ('Hays Talley'),
+            ('Jack Manzari'),
+            ('Jack McGuinness'),
+            ('Jack Schmatz'),
+            ('Jalmari Paasonen'),
+            ('James Hammond'),
+            ('James Long'),
+            ('Jeff Newton'),
+            ('Jeremy Barry'),
+            ('Joe Sullivan'),
+            ('Joshua Easterly'),
+            ('Justin Cresent'),
+            ('Kai Genieser'),
+            ('Kaiden Youssefieh'),
+            ('Kane Goodman'),
+            ('KJ Dowling'),
+            ('Liam Sciple'),
+            ('Lucas Teuber'),
+            ('Matthew Boothby'),
+            ('Matthew Peterson'),
+            ('Matthew Rebein'),
+            ('Max Gunderson'),
+            ('Michael Mehler'),
+            ('Miki Fok'),
+            ('Nate Kim'),
+            ('Nikhil Kokkirala'),
+            ('Noah Caruso'),
+            ('Oliver Sun'),
+            ('Owen Emge'),
+            ('Pablo Troop'),
+            ('Quinn Bailey'),
+            ('Rashad Amirullah'),
+            ('Reed Bram'),
+            ('Richie De Luna'),
+            ('Rolf Hsu'),
+            ('Ryan Garwood'),
+            ('Ryan Marino'),
+            ('Ryan Taylor'),
+            ('Sam Burgunder'),
+            ('Sami Fuleihan'),
+            ('Samuel Harrington'),
+            ('Sebastian Parker'),
+            ('Soren Zimmer'),
+            ('Spencer Daniel'),
+            ('Tucker Peters'),
+            ('Tuscan Mulinazzi'),
+            ('Waylon Merkel'),
+            ('Will Katabian'),
+            ('Will Wright'),
+            ('William Lautenbach'),
+            ('Zach Hooven'),
+            ('Zachary Moreno'),
+            ('Elijah Benesh'),
+            ('Matthew Berthoud'),
+            ('Zack Hammond');
+        -- Class of 24:
+
+        -- Class of 23:
+
+        '''
+        self.__do_query(query)
             
 # db = DAO()
 # with open("example-data.json") as file:
 #     data = json.load(file)
-# dao.enter_test_users()
+# # db.enter_test_users()
 # db.enter_ACT(data)
