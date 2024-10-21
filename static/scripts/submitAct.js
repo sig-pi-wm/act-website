@@ -3,18 +3,17 @@ const handleSubmit = (e) => {
     formData = new FormData(e.target);
     let incomplete = false; // Flag for incomplete form
 
-    // for (const [key, value] of formData.entries()) {
-    //     if (value === "") {
-    //         incomplete = true;
-    //         alert(`Please fill in the ${key} field.`);
-    //         break;
-    //     }
-    // }
+    for (const [key, value] of formData.entries()) {
+        if (value === "") {
+            incomplete = true;
+            alert(`Please fill in the ${key} field.`);
+            break;
+        }
+    }
     if (incomplete) return; // Stop execution if the form is incomplete
 
     const actJson = parseActFormToJson(formData);
     console.log(actJson)
-    return;
 
     const url = '/input';
 
