@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}
-Add Username
+Add Player
 {% endblock %}
 
 {% block main %}
 <form action="/add-username" method="POST">
-    <input name="username" /> 
+    <input name="username" placeholder="New Player"/> 
     <input type="submit" /> 
 </form>
 {% endblock %}
