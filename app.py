@@ -35,5 +35,15 @@ def input():
     return render_template('input.html', usernames=usernames, characters=characters)
 
 
+@app.route('/add-username', methods=["GET", "POST"])
+def add_username():
+    if request.method == 'POST':
+        username = request.form.get("username")
+        dao.add_username(username)
+    return render_template('add-username.html')
+        
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

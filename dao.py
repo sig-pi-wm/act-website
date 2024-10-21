@@ -287,6 +287,11 @@ class DAO:
         cnx.close()
 
 
+    def add_username(self, username):
+        query = "INSERT IGNORE INTO users (username) VALUES (%s)";
+        self.__do_query(query, [username])
+
+
     def enter_test_users(self):
         query = '''
             INSERT IGNORE INTO users (username) VALUES

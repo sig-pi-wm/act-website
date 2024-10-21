@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Username
+{% endblock %}
+
+{% block main %}
+<form action="/add-username" method="POST">
+    <input name="username" /> 
+    <input type="submit" /> 
+</form>
+{% endblock %}
