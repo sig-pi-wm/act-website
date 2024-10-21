@@ -43,12 +43,23 @@ body {
     overflow-y: auto;
 }
 
+.body-main.full-width {
+    left: 0;
+    width: 100%;
+}
+
 .sidenav {
     position: fixed;
     top: var(--header-height);
     width: var(--sidenav-width);
     height: calc(100vh - var(--header-height));
     background-color: slateblue;
+}
+
+.sidenav.collapsed {
+    width: 0;
+    padding: 0;
+    display: none;
 }
 
 .data-tabs {
