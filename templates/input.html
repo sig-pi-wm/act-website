@@ -59,7 +59,7 @@ Input
             <td>
                 <div>
                     {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
-                    <input id="t{{ team_number }}-r{{ race_number }}-score" type="number" min="0" max="3" />
+                    <input name="t{{ team_number }}-r{{ race_number }}-score" type="number" min="0" max="3" />
                     {% endfor %}
                 </div>
                 <div>

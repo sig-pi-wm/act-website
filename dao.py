@@ -2,8 +2,6 @@ import mysql.connector
 import config as config
 import os
 import glob
-import json
-import pprint
 
 class DAO:
 
@@ -211,8 +209,6 @@ class DAO:
         # t4_p3_uid = data["teams"][3]["players"][2]["username"]
         # t4_p4_uid = data["teams"][3]["players"][3]["username"]
 
-        pprint.pprint(data)
-
         query = '''
             INSERT INTO acts (
                 act_date,
@@ -246,8 +242,6 @@ class DAO:
         )
 
         try:
-            print(query)
-            print(values)
             cursor.execute(query, values)
         except mysql.connector.Error as err:
             print("Failed to enter ACT, not attempting to enter races: {}".format(err))
@@ -274,7 +268,6 @@ class DAO:
         '''
 
         for race in data["races"]:
-            print(race)
             values = (
                 act_id,
                 race["mapId"],
@@ -385,9 +378,3 @@ class DAO:
         '''
         self.__do_query(query)
             
-db = DAO()
-with open("example-data.json") as file:
-    data = json.load(file)
-    print(type(data))
-# db.enter_test_users()
-db.enter_ACT_from_json(data)

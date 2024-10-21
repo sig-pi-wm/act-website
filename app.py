@@ -10,7 +10,6 @@ dao = DAO()
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        print(request)
         return redirect(url_for('data'))
     return render_template('index.html')
 
