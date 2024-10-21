@@ -33,16 +33,12 @@ Input
                 </div>
                 {% for player_number in range(1,3) %}
                 <div>
-                    <input id="t{{ team_number }}-p{{ player_number }}" name="t{{ team_number }}-underline" type="radio" value="{{ player_number }}"/>
-                    <label for="t{{ team_number }}-p{{ player_number }}">
-                        <select name="t{{ team_number }}-p{{ player_number }}-username">
-                            <option value="">Username</option>
-                            {% for username in usernames %}
-                            <option>{{ username }}</option>
-                            {% endfor %}
-                        </select>
-                        <!-- <input name="t{{ team_number }}-p{{ player_number }}-username" placeholder="Username" /> -->
-                    </label>
+                    <select class="player-select player-{{ player_number }}" name="t{{ team_number }}-p{{ player_number }}-username">
+                        <option value="">Username</option>
+                        {% for username in usernames %}
+                        <option>{{ username }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 {% endfor %}
             </td>
@@ -66,7 +62,7 @@ Input
                 </div>
                 <div class="race-scores-row">
                     {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
-                    <div class="race-scores-section clickable-underline team-{{ (race_number + 1) % 2 + 1}}">
+                    <div class="race-scores-section clickable-underline player-1 player-{{ (race_number + 1) % 2 + 1}}">
                         <input class="underline-hidden-input" type="hidden" name="t{{ team_number }}-r{{ race_number }}-underline" value="{{ (race_number + 1) % 2 + 1}}" />
                     </div>
                     <!-- <label class="race-scores-section clickable-underline" for="t{{ team_number }}-r{{ race_number }}-score" name="t{{ team_number }}-r{{ race_number }}-underline" value="1"></label> -->

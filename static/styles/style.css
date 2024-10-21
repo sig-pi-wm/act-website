@@ -100,6 +100,10 @@ body {
     }
 }
 
+.player-select {
+    color: white;
+}
+
 .race-scores-row {
     display: flex;
 }
@@ -110,15 +114,16 @@ body {
 }
 
 .clickable-underline {
-
     height: 0.5rem;
     margin-top: 0.4rem;
-
-    background-color: blue;
     cursor: pointer;
 }
 
-.team-2 {
+.player-1 {
+    background-color: blue;
+}
+
+.player-2 {
     background-color: red;
 }
 

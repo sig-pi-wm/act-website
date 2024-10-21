@@ -7,10 +7,10 @@ for (let underlineElement of underlineClickables) {
 
         if (teamNumber == "1") {
             hiddenInput.value = "2";
-            underline.classList.toggle('team-2');
+            underline.classList.toggle('player-2');
         } else {
             hiddenInput.value = "1";
-            underline.classList.toggle('team-2');
+            underline.classList.toggle('player-2');
         }
     });
 }
