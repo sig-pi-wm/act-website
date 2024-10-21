@@ -66,8 +66,8 @@ Input
                 </div>
                 <div class="race-scores-row">
                     {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
-                    <div class="race-scores-section clickable-underline">
-                        <input class="underline-hidden-input" type="hidden" name="t{{ team_number }}-r{{ race_number }}-underline" value="1" />
+                    <div class="race-scores-section clickable-underline team-{{ (race_number + 1) % 2 + 1}}">
+                        <input class="underline-hidden-input" type="hidden" name="t{{ team_number }}-r{{ race_number }}-underline" value="{{ (race_number + 1) % 2 + 1}}" />
                     </div>
                     <!-- <label class="race-scores-section clickable-underline" for="t{{ team_number }}-r{{ race_number }}-score" name="t{{ team_number }}-r{{ race_number }}-underline" value="1"></label> -->
                     {% endfor %}
