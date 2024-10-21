@@ -12,7 +12,7 @@
 
 <body>
     <header class="body-header">
-        <img class="menu-icon" src="{{ url_for('static', filename='assets/hamburger-menu.svg') }}" alt="Menu">
+        <img id="hamburger-menu-button" class="menu-icon" src="{{ url_for('static', filename='assets/hamburger-menu.svg') }}" alt="Menu">
         <span class="website-title"><a href="/">ACT Website</a></span>
         <span class="menu-icon"></span>
     </header>
@@ -26,6 +26,7 @@
     <main class="body-main">
         {% block main %}{% endblock %}
     </main>
+    <script src="{{ url_for('static', filename='collapsible-sidebar.js') }}"></script>
 </body>
 
 </html>

@@ -23,6 +23,7 @@ body {
 .menu-icon {
     height: var(--header-height);
     width: var(--header-height);
+    cursor: pointer;
 }
 
 .website-title {
