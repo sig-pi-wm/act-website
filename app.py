@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
 import helpers as helpers
-import json
 from dao import DAO
 
 app = Flask(__name__)
