@@ -54,12 +54,33 @@ body {
     width: var(--sidenav-width);
     height: calc(100vh - var(--header-height));
     background-color: slateblue;
+
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 .sidenav.collapsed {
     width: 0;
     padding: 0;
     display: none;
+}
+
+        
+.menu-item {
+    height: 3rem;
+    padding-left: 1rem;
+    text-decoration: none;
+    color: lightgray;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+
+.menu-item:hover {
+    background-color: darkslateblue;
 }
 
 .data-tabs {
