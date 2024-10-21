@@ -57,16 +57,19 @@ Input
             </td>
             {% for team_number in range(1,5) %}
             <td>
-                <div>
+                <div class="race-scores-row">
                     {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
-                    <input name="t{{ team_number }}-r{{ race_number }}-score" type="number" min="0" max="3" />
+                    <div class="race-scores-section">
+                        <input name="t{{ team_number }}-r{{ race_number }}-score" type="number" min="0" max="3" />
+                    </div>
                     {% endfor %}
                 </div>
-                <div>
+                <div class="race-scores-row">
                     {% for race_number in range(cup_offset + 1, cup_offset + 5) %}
-                    <label for="t{{ team_number }}-r{{ race_number }}-score">
-                        <input type="checkbox" name="t{{ team_number }}-r{{ race_number }}-underline"/>
-                    </label>
+                    <div class="race-scores-section clickable-underline">
+                        <input class="underline-hidden-input" type="hidden" name="t{{ team_number }}-r{{ race_number }}-underline" value="1" />
+                    </div>
+                    <!-- <label class="race-scores-section clickable-underline" for="t{{ team_number }}-r{{ race_number }}-score" name="t{{ team_number }}-r{{ race_number }}-underline" value="1"></label> -->
                     {% endfor %}
                 </div>
             </td>
@@ -87,6 +90,7 @@ Input
     </table>
     <input type="submit" />
 </form>
-<script src="{{ url_for('static', filename='act-input.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/handleUnderlines.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/submitAct.js') }}"></script>
 {{ test_data }}
 {% endblock %}

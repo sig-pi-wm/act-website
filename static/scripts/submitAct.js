@@ -3,17 +3,18 @@ const handleSubmit = (e) => {
     formData = new FormData(e.target);
     let incomplete = false; // Flag for incomplete form
 
-    for (const [key, value] of formData.entries()) {
-        if (value === "") {
-            incomplete = true;
-            alert(`Please fill in the ${key} field.`);
-            break;
-        }
-    }
+    // for (const [key, value] of formData.entries()) {
+    //     if (value === "") {
+    //         incomplete = true;
+    //         alert(`Please fill in the ${key} field.`);
+    //         break;
+    //     }
+    // }
     if (incomplete) return; // Stop execution if the form is incomplete
 
     const actJson = parseActFormToJson(formData);
     console.log(actJson)
+    return;
 
     const url = '/input';
 
@@ -72,20 +73,10 @@ const parseActFormToJson = (formData) => {
             "players": [],
         }
         for (let j = 0; j < 4; j++) {
-            const underlinedPlayer = formData.get(`t${j+1}-underline`);
-            const isRaceUnderlined = ("on" === formData.get(`t${j+1}-r${i+1}-underline`));
-            let playerNumber;
-            if (isRaceUnderlined) {
-                playerNumber = underlinedPlayer;
-            } else {
-                if (underlinedPlayer === "1") {
-                    playerNumber = 2;
-                }
-                else {
-                    playerNumber = 1;
-                }
-            }
-            
+            // const underlinedPlayer = formData.get(`t${j+1}-underline`);
+            const playerNumber = formData.get(`t${j+1}-r${i+1}-underline`);
+            console.log(`t${j+1}-p${playerNumber}-username`);
+ 
             actJson.races[i].players[j] = {
                 "username": formData.get(`t${j+1}-p${playerNumber}-username`),
                 "points": formData.get(`t${j+1}-r${i+1}-score`),

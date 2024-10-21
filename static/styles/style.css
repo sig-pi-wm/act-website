@@ -92,13 +92,34 @@ body {
 }
 
 .act-input {
-    width: 100%;
     height: 100%;
     table-layout: fixed;
 
     td {
         background-color: lightgrey;
     }
+}
+
+.race-scores-row {
+    display: flex;
+}
+
+.race-scores-section {
+    width: 25%;
+    height: 1rem;
+}
+
+.clickable-underline {
+
+    height: 0.5rem;
+    margin-top: 0.4rem;
+
+    background-color: blue;
+    cursor: pointer;
+}
+
+.team-2 {
+    background-color: red;
 }
 
 .p1-indicator {
