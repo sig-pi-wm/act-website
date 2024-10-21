@@ -1,18 +1,43 @@
 const handleSubmit = (e) => {
     e.preventDefault();
     formData = new FormData(e.target);
+    let incomplete = false; // Flag for incomplete form
 
-    for (value of formData.values()) {
+    for (const [key, value] of formData.entries()) {
         if (value === "") {
-            //popup that says form is incomplete
-            // specify which thing to fill in based on key
+            incomplete = true;
+            alert(`Please fill in the ${key} field.`);
             break;
         }
     }
+    if (incomplete) return; // Stop execution if the form is incomplete
 
     const actJson = parseActFormToJson(formData);
     console.log(actJson)
-}
+
+    const url = '/input';
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(actJson),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+    })
+    .then(data => {
+        console.log('Success:', data); // Handle successful response
+        // Optionally show a success message or update the UI
+    })
+    .catch(error => {
+        console.error('Error:', error); // Handle errors
+        // Optionally show an error message to the user
+    });
+};
 
 
 const parseActFormToJson = (formData) => {

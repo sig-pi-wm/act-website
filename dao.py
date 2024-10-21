@@ -2,7 +2,6 @@ import mysql.connector
 import config as config
 import os
 import glob
-import json
 
 class DAO:
 
@@ -169,7 +168,7 @@ class DAO:
         return [self.__do_query(query, [username]) for username in team_usernames]
 
 
-    def enter_ACT(self, data):
+    def enter_ACT_from_json(self, data):
         cnx = mysql.connector.connect(
             user=config.user,
             password=config.password,
@@ -192,43 +191,35 @@ class DAO:
 
         t1_p1_uid = data["teams"][0]["players"][0]["username"]
         t1_p2_uid = data["teams"][0]["players"][1]["username"]
-        t1_p3_uid = data["teams"][0]["players"][2]["username"]
-        t1_p4_uid = data["teams"][0]["players"][3]["username"]
+        # t1_p3_uid = data["teams"][0]["players"][2]["username"]
+        # t1_p4_uid = data["teams"][0]["players"][3]["username"]
 
         t2_p1_uid = data["teams"][1]["players"][0]["username"]
         t2_p2_uid = data["teams"][1]["players"][1]["username"]
-        t2_p3_uid = data["teams"][1]["players"][2]["username"]
-        t2_p4_uid = data["teams"][1]["players"][3]["username"]
+        # t2_p3_uid = data["teams"][1]["players"][2]["username"]
+        # t2_p4_uid = data["teams"][1]["players"][3]["username"]
 
         t3_p1_uid = data["teams"][2]["players"][0]["username"]
         t3_p2_uid = data["teams"][2]["players"][1]["username"]
-        t3_p3_uid = data["teams"][2]["players"][2]["username"]
-        t3_p4_uid = data["teams"][2]["players"][3]["username"]
+        # t3_p3_uid = data["teams"][2]["players"][2]["username"]
+        # t3_p4_uid = data["teams"][2]["players"][3]["username"]
 
         t4_p1_uid = data["teams"][3]["players"][0]["username"]
         t4_p2_uid = data["teams"][3]["players"][1]["username"]
-        t4_p3_uid = data["teams"][3]["players"][2]["username"]
-        t4_p4_uid = data["teams"][3]["players"][3]["username"]
+        # t4_p3_uid = data["teams"][3]["players"][2]["username"]
+        # t4_p4_uid = data["teams"][3]["players"][3]["username"]
 
         query = '''
             INSERT INTO acts (
                 act_date,
                 t1_score, t2_score, t3_score, t4_score,
                 t1_character, t2_character, t3_character, t4_character, 
-                t1_p1_uid, t1_p2_uid, t1_p3_uid, t1_p4_uid,
-                t2_p1_uid, t2_p2_uid, t2_p3_uid, t2_p4_uid,
-                t3_p1_uid, t3_p2_uid, t3_p3_uid, t3_p4_uid,
-                t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid
+                t1_p1_uid, t1_p2_uid,
+                t2_p1_uid, t2_p2_uid,
+                t3_p1_uid, t3_p2_uid,
+                t4_p1_uid, t4_p2_uid
             )
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 
-                (SELECT user_id FROM users WHERE username = %s),
-                (SELECT user_id FROM users WHERE username = %s),
-                (SELECT user_id FROM users WHERE username = %s),
-                (SELECT user_id FROM users WHERE username = %s),
-                (SELECT user_id FROM users WHERE username = %s),
-                (SELECT user_id FROM users WHERE username = %s),
-                (SELECT user_id FROM users WHERE username = %s),
-                (SELECT user_id FROM users WHERE username = %s),
                 (SELECT user_id FROM users WHERE username = %s),
                 (SELECT user_id FROM users WHERE username = %s),
                 (SELECT user_id FROM users WHERE username = %s),
@@ -244,10 +235,10 @@ class DAO:
             date, 
             t1_score, t2_score, t3_score, t4_score,
             t1_character, t2_character, t3_character, t4_character, 
-            t1_p1_uid, t1_p2_uid, t1_p3_uid, t1_p4_uid,
-            t2_p1_uid, t2_p2_uid, t2_p3_uid, t2_p4_uid,
-            t3_p1_uid, t3_p2_uid, t3_p3_uid, t3_p4_uid,
-            t4_p1_uid, t4_p2_uid, t4_p3_uid, t4_p4_uid
+            t1_p1_uid, t1_p2_uid,
+            t2_p1_uid, t2_p2_uid,
+            t3_p1_uid, t3_p2_uid,
+            t4_p1_uid, t4_p2_uid
         )
 
         try:
@@ -387,8 +378,3 @@ class DAO:
         '''
         self.__do_query(query)
             
-# db = DAO()
-# with open("example-data.json") as file:
-#     data = json.load(file)
-# # db.enter_test_users()
-# db.enter_ACT(data)
