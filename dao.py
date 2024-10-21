@@ -299,6 +299,7 @@ class DAO:
     def enter_test_users(self):
         query = '''
             INSERT IGNORE INTO users (username) VALUES
+        -- In the frat as of Oct 2024
             ('Abishek Samuel'),
             ('Aidan McLaren'),
             ('Anagh Sivadasan'),
@@ -379,6 +380,10 @@ class DAO:
             ('Elijah Benesh'),
             ('Matthew Berthoud'),
             ('Zack Hammond');
+        -- Class of 24:
+
+        -- Class of 23:
+
         '''
         self.__do_query(query)
             
