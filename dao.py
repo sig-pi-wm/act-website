@@ -373,7 +373,6 @@ class DAO:
             ('William Lautenbach'),
             ('Zach Hooven'),
             ('Zachary Moreno'),
-            ('Elijah Benesh'),
             ('Matthew Berthoud'),
             ('Zack Hammond');
         -- Class of 24:
