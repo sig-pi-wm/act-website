@@ -18,7 +18,7 @@ def data():
     season = request.args.get("season")
     if season is None:
         season = "Fall 2024"
-    seasons = ["Fall 2024", "Spring 2023", "Fall 2023"] 
+    seasons = ["Fall 2024", "Spring 2024", "Fall 2023", "Spring 2023", "Fall 2022"] 
     data = dao.fetch_acts(season)
     return render_template('data.html', seasons=seasons, data=data, season=season)
 
