@@ -38,7 +38,7 @@ Leaderboard
                 {{ user.elo }}
             </td>
             <td class="acts-played-col">
-                {{ acts_played.get(user.user_id) }}
+                {{ user.act_count }}
             </td>
         </tr>
         {% endfor %}

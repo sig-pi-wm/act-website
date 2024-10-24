@@ -45,15 +45,9 @@ def add_username():
 
 @app.route('/leaderboard', methods=["GET"])
 def leaderboard():
-    users = dao.get_all_users()
-    user_ids = [user["user_id"] for user in users]
-    acts_played = {}
-    for user_id in user_ids:
-        acts_played[user_id] = dao.count_acts(user_id)[0]['COUNT(*)'] 
-    return render_template('leaderboard.html', users=users, num_users=len(users), acts_played=acts_played)
+    users = dao.get_all_users_for_leaderboard()
+    return render_template('leaderboard.html', users=users)
         
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
