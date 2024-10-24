@@ -292,93 +292,26 @@ class DAO:
         self.__do_query(query, [username])
 
 
-    def enter_test_users(self):
+    def simple_elo_from_scratch(self):
+        # only use points and strength of schedule
         query = '''
-            INSERT IGNORE INTO users (username) VALUES
-        -- In the frat as of Oct 2024
-            ('Abishek Samuel'),
-            ('Aidan McLaren'),
-            ('Anagh Sivadasan'),
-            ('Andrew Lumelleau'),
-            ('Asim Asar'),
-            ('Ben Olshaker'),
-            ('Benjamin Orye'),
-            ('Benny Edelson'),
-            ('Blake Swartz'),
-            ('Brandon Marlow'),
-            ('Brennen Fender'),
-            ('Brian Simmons'),
-            ('Bryce Cloonan'),
-            ('Calvin Farrell'),
-            ('Charlie Unice'),
-            ('Chase Cassellius'),
-            ('Colin Walls'),
-            ('Connor Steele'),
-            ('Cooper Cole'),
-            ('Danny Piper'),
-            ('Eli Benesh'),
-            ('Elliott White'),
-            ('Ethan Wilson'),
-            ('Garrett Robertson'),
-            ('George Solari'),
-            ('Hays Talley'),
-            ('Jack Manzari'),
-            ('Jack McGuinness'),
-            ('Jack Schmatz'),
-            ('Jalmari Paasonen'),
-            ('James Hammond'),
-            ('James Long'),
-            ('Jeff Newton'),
-            ('Jeremy Barry'),
-            ('Joe Sullivan'),
-            ('Joshua Easterly'),
-            ('Justin Cresent'),
-            ('Kai Genieser'),
-            ('Kaiden Youssefieh'),
-            ('Kane Goodman'),
-            ('KJ Dowling'),
-            ('Liam Sciple'),
-            ('Lucas Teuber'),
-            ('Matthew Boothby'),
-            ('Matthew Peterson'),
-            ('Matthew Rebein'),
-            ('Max Gunderson'),
-            ('Michael Mehler'),
-            ('Miki Fok'),
-            ('Nate Kim'),
-            ('Nikhil Kokkirala'),
-            ('Noah Caruso'),
-            ('Oliver Sun'),
-            ('Owen Emge'),
-            ('Pablo Troop'),
-            ('Quinn Bailey'),
-            ('Rashad Amirullah'),
-            ('Reed Bram'),
-            ('Richie De Luna'),
-            ('Rolf Hsu'),
-            ('Ryan Garwood'),
-            ('Ryan Marino'),
-            ('Ryan Taylor'),
-            ('Sam Burgunder'),
-            ('Sami Fuleihan'),
-            ('Samuel Harrington'),
-            ('Sebastian Parker'),
-            ('Soren Zimmer'),
-            ('Spencer Daniel'),
-            ('Tucker Peters'),
-            ('Tuscan Mulinazzi'),
-            ('Waylon Merkel'),
-            ('Will Katabian'),
-            ('Will Wright'),
-            ('William Lautenbach'),
-            ('Zach Hooven'),
-            ('Zachary Moreno'),
-            ('Matthew Berthoud'),
-            ('Zack Hammond');
-        -- Class of 24:
-
-        -- Class of 23:
-
+            SELECT 
+                act_date,
+                act_id,
+                race_id,
+                t1_player_uid,
+                t1_points,
+                t2_player_uid,
+                t2_points,
+                t3_player_uid,
+                t3_points,
+                t4_player_uid,
+                t4_points
+            FROM races
+            LEFT JOIN acts
+            USING (act_id)
+            ORDER BY act_date, act_id, race_id
         '''
-        self.__do_query(query)
-            
+        races = self.__do_query(query)
+        for race in races:
+            print(race)
