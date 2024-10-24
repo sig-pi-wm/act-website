@@ -322,4 +322,27 @@ class DAO:
         return self.__do_query(query)
 
     def get_all_users(self):
-        return self.__do_query('SELECT * FROM users')
+        return self.__do_query('SELECT * FROM users ORDER BY elo DESC')
+
+    def count_acts(self, user_id):
+        query = '''
+            SELECT COUNT(*)
+            FROM acts
+            WHERE t1_p1_uid = %s OR
+                t1_p2_uid = %s OR
+                t1_p3_uid = %s OR
+                t1_p4_uid = %s OR
+                t2_p1_uid = %s OR
+                t2_p2_uid = %s OR
+                t2_p3_uid = %s OR
+                t2_p4_uid = %s OR
+                t3_p1_uid = %s OR
+                t3_p2_uid = %s OR
+                t3_p3_uid = %s OR
+                t3_p4_uid = %s OR
+                t4_p1_uid = %s OR
+                t4_p2_uid = %s OR
+                t4_p3_uid = %s OR
+                t4_p4_uid = %s
+        '''
+        return self.__do_query(query, [user_id for _ in range(16)])

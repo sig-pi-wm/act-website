@@ -163,3 +163,8 @@ body {
 .p4-indicator {
     color: yellow;
 }
+
+.acts-played-col {
+    display: flex;
+    justify-content: center;
+}
