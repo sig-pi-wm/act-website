@@ -291,6 +291,13 @@ class DAO:
         query = "INSERT IGNORE INTO users (username) VALUES (%s)";
         self.__do_query(query, [username])
 
+    def update_elo(self, user_id, elo):
+        query = '''
+            UPDATE users
+            SET elo = %s
+            WHERE user_id = %s
+        '''
+        self.__do_query(query, [elo, user_id])
 
     def get_all_races(self):
         # only use points and strength of schedule
