@@ -292,7 +292,7 @@ class DAO:
         self.__do_query(query, [username])
 
 
-    def simple_elo_from_scratch(self):
+    def get_all_races(self):
         # only use points and strength of schedule
         query = '''
             SELECT 
@@ -312,6 +312,7 @@ class DAO:
             USING (act_id)
             ORDER BY act_date, act_id, race_id
         '''
-        races = self.__do_query(query)
-        for race in races:
-            print(race)
+        return self.__do_query(query)
+
+    def get_all_users(self):
+        return self.__do_query('SELECT * FROM users')
