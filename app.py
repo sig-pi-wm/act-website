@@ -6,10 +6,8 @@ app = Flask(__name__)
 dao = DAO()
 
 
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["GET"])
 def index():
-    if request.method == "POST":
-        return redirect(url_for('data'))
     return render_template('index.html')
 
 
@@ -23,24 +21,24 @@ def data():
     return render_template('data.html', seasons=seasons, data=data, season=season)
 
 
-@app.route('/input', methods=["GET", "POST"])
-def input():
-    characters = [c["character_name"] for c in dao.get_characters()]
-    usernames = [u["username"] for u in dao.get_usernames()]
-    if request.method == 'POST':
-        body = request.json
-        dao.enter_ACT_from_json(body)
-        return redirect(url_for("input"))
+# @app.route('/input', methods=["GET", "POST"])
+# def input():
+#     characters = [c["character_name"] for c in dao.get_characters()]
+#     usernames = [u["username"] for u in dao.get_usernames()]
+#     if request.method == 'POST':
+#         body = request.json
+#         dao.enter_ACT_from_json(body)
+#         return redirect(url_for("input"))
 
-    return render_template('input.html', usernames=usernames, characters=characters)
+#     return render_template('input.html', usernames=usernames, characters=characters)
 
 
-@app.route('/add-username', methods=["GET", "POST"])
-def add_username():
-    if request.method == 'POST':
-        username = request.form.get("username")
-        dao.add_username(username)
-    return render_template('add-username.html')
+# @app.route('/add-username', methods=["GET", "POST"])
+# def add_username():
+#     if request.method == 'POST':
+#         username = request.form.get("username")
+#         dao.add_username(username)
+#     return render_template('add-username.html')
 
 
 @app.route('/leaderboard', methods=["GET"])
