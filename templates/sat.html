@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+SAT
+{% endblock %}
+
+{% block main %}
+<div class="normal-page">
+    <h1>Schedule</h1>
+    <table class="normal-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday Morning</th>
+                <th>Saturday Night</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>12pm</td>
+                <td></td>
+                <td></td>
+                <td>Heats 1,2</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>7pm</td>
+                <td>Heats 1,2,3</td>
+                <td>Heats 1,2,3</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>8pm</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Final</td>
+            </tr>
+            <tr>
+                <td>9pm</td>
+                <td>Heats 4,5,6</td>
+                <td>Heat 4</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Live Scorecard</h1>
+    <iframe class="sat-google-sheet" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT2-ARgjaOxH_e9ANw3VVXrbjszfwQvsZ0YeZ_SmNuMhOLZThm3WE91gu0P-Fls1YNpVSiGMMMtqtte/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+</div>
+{% endblock %}

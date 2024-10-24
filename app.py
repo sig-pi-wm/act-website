@@ -45,6 +45,10 @@ def data():
 def leaderboard():
     users = dao.get_all_users_for_leaderboard()
     return render_template('leaderboard.html', users=users)
+
+@app.route('/sat', methods=["GET"])
+def sat():
+    return render_template('sat.html')
         
 
 if __name__ == '__main__':

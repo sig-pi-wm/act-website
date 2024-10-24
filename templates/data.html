@@ -6,7 +6,7 @@ Data
 
 {% block main %}
 
-<div class="scorecards">
+<div class="normal-page">
     <form class="data-tabs" action="/data" method="GET">
         {% for season in seasons %}
         <button type="submit" name="season" value="{{ season }}">{{ season }}</button>

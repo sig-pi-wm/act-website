@@ -6,44 +6,44 @@ Leaderboard
 
 {% block main %}
 
-<h1>Leaderboard</h1>
+<div class="normal-page">
+    <h1>Leaderboard</h1>
+    <table class="normal-table">
+        <thead>
+            <tr>
+                <th>
 
-<table>
-    <thead>
-        <tr>
-            <th>
-
-            </th>
-            <th>
-                Username 
-            </th>
-            <th>
-                ELO 
-            </th>
-            <th>
-                ACTs Played 
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        <tr>
-            <td>
-                {{ loop.index }}.
-            </td>
-            <td>
-                {{ user.username }}
-            </td>
-            <td>
-                {{ user.elo }}
-            </td>
-            <td class="acts-played-col">
-                {{ user.act_count }}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-
-</table>
+                </th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    ELO
+                </th>
+                <th>
+                    ACTs Played
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>
+                    {{ loop.index }}.
+                </td>
+                <td>
+                    {{ user.username }}
+                </td>
+                <td>
+                    {{ user.elo }}
+                </td>
+                <td>
+                    {{ user.act_count }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}
