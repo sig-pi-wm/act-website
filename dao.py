@@ -362,21 +362,45 @@ class DAO:
 
     def get_act_by_id(self, act_id):
         query = '''
-            SELECT a.act_id, a.act_date, t.team_id, t.team_id, t.team_number, t.team_character, t.score, u.username
+            SELECT a.act_date, t.team_id, t.team_id, t.team_number, t.team_character, t.score, u.username
             FROM team_players p
             LEFT JOIN users u ON p.player_id = u.user_id
             LEFT JOIN teams t USING (team_id)
             LEFT JOIN acts a USING (act_id)
             WHERE act_id = %s
         '''
-        players = self.__do_query(query, [act_id])
-        for player in players:
-            print(player)
+        return self.__do_query(query, [act_id])
+    
+    def get_races_by_act_id(self, act_id):
+        query = '''
+            SELECT m.map_name, r.race_number, u.username, p.points
+            FROM race_players p
+            LEFT JOIN users u ON p.player_id = u.user_id
+            LEFT JOIN races r USING (race_id)
+            LEFT JOIN maps m ON m.map_id = r.map_id
+            LEFT JOIN acts a USING (act_id)
+            WHERE act_id = %s
+        '''
+        return self.__do_query(query, [act_id])
 
 
-# dao = DAO()
+dao = DAO()
+
 # dao.run_sql_script("team-data-migration.sql")
-# dao.get_act_by_id(8)
+print()
+print()
+print()
+result = dao.get_act_by_id(5)
+for row in result:
+    print(row)
+
+# dao.run_sql_script("race-data-migration.sql")
+print()
+print()
+print()
+result = dao.get_races_by_act_id(5)
+for row in result:
+    print(row)
 
 # TODO: player race points table instead of simple races table
 
