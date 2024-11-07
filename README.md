@@ -1,10 +1,12 @@
 # act-website
 Website for ACT Stats, Signup, Etc.
 
-## Dependencies
-(pip install ...)
-* flask
-* mysql-connector-python
+## Development
+```shell
+python -m venv .venv
+pip install -r requirements.txt
+python app.py
+```
 
 ## Hosting
 The domain registration is through cloudflare, at `allcuptour.com`. The flask webapp is hosted on [pythonanywhere.com](pythonanywhere.com), as is the MySQL database.
