@@ -382,26 +382,3 @@ class DAO:
             WHERE act_id = %s
         '''
         return self.__do_query(query, [act_id])
-
-
-dao = DAO()
-
-# dao.run_sql_script("team-data-migration.sql")
-print()
-print()
-print()
-result = dao.get_act_by_id(5)
-for row in result:
-    print(row)
-
-# dao.run_sql_script("race-data-migration.sql")
-print()
-print()
-print()
-result = dao.get_races_by_act_id(5)
-for row in result:
-    print(row)
-
-# TODO: player race points table instead of simple races table
-
-
