@@ -7,7 +7,7 @@ class DAO:
 
     def __init__(self):
         # Get the list of all files in the folder and sort them alphabetically
-        files = sorted(glob.glob(os.path.join(config.database_dir, '*')))
+        files = sorted(glob.glob(os.path.join(config.database_dir + '/schema-builder', '*')))
 
         for file in files:
             with open(file, 'r') as f:
@@ -351,3 +351,33 @@ class DAO:
             ORDER BY elo DESC
         '''
         return self.__do_query(query)
+    
+    def run_sql_script(self, filename):
+        with open(os.path.join(config.database_dir + '/scripts/' + filename), 'r') as f:
+            content = f.read()
+            statements = content.split(';')
+            for statement in statements:
+                self.__do_query(statement)
+
+
+    def get_act_by_id(self, act_id):
+        query = '''
+            SELECT a.act_id, a.act_date, t.team_id, t.team_id, t.team_number, t.team_character, t.score, u.username
+            FROM team_players p
+            LEFT JOIN users u ON p.player_id = u.user_id
+            LEFT JOIN teams t USING (team_id)
+            LEFT JOIN acts a USING (act_id)
+            WHERE act_id = %s
+        '''
+        players = self.__do_query(query, [act_id])
+        for player in players:
+            print(player)
+
+
+# dao = DAO()
+# dao.run_sql_script("team-data-migration.sql")
+# dao.get_act_by_id(8)
+
+# TODO: player race points table instead of simple races table
+
+
