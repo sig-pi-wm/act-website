@@ -2,9 +2,27 @@
 Website for ACT Stats, Signup, Etc.
 
 ## Development
-```shell
-python -m venv .venv
+Clone the repo and enter the directory
+```bash
+git clone https://github.com/sig-pi-wm/act-website
+cd act-website
+```
+Activate virtual environment and install dependencies
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+```
+Run the database for development (you'll have to install docker and docker desktop as well)
+```bash
+docker compose up -d
+```
+(To shut down the database)
+```bash
+docker compose down
+```
+Run the flask app for development
+```bash
 python app.py
 ```
 
