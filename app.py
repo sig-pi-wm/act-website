@@ -6,6 +6,7 @@ db = Client(app)
 
 @app.route('/', methods=["GET"])
 def index():
+    db.test()
     return render_template('index.html')
 
 
