@@ -6,10 +6,11 @@ import glob
 class DAO:
 
     def __init__(self):
-        # Get the list of all files in the folder and sort them alphabetically
-        files = sorted(glob.glob(os.path.join(config.database_dir + '/schema-builder', '*')))
+        repo_dir = os.path.dirname(os.path.abspath(__file__))
+        schema_builder_path = os.path.join(repo_dir + '/database/schema-builder', '*')
+        schema_files = sorted(glob.glob(schema_builder_path))
 
-        for file in files:
+        for file in schema_files:
             with open(file, 'r') as f:
                 content = f.read()
                 statements = content.split(';')
