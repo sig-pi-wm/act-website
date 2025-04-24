@@ -1,60 +1,110 @@
-import mysql.connector
 import config as config
 import os
 import glob
 
-class DAO:
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import text
+from flask import Flask, render_template, request, redirect, url_for
+import helpers as helpers
+from dao import DAO
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase, relationship
+from sqlalchemy import Column, Date, ForeignKey, Integer, MetaData, String, Table, null
+from sqlalchemy.orm import Mapped, mapped_column
 
-    def __init__(self):
+class Base(DeclarativeBase):
+    pass
+
+class User(Base):
+    __tablename__ = "users"
+    user_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    username = mapped_column(String, nullable=False)
+
+class ACT(Base):
+    __tablename__ = "acts"
+    act_id = mapped_column(Integer, primary_key=True, autoincrement=True, nullable=False)
+
+class Map(Base):
+    __tablename__ = "maps"
+    map_id = mapped_column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    map_name = mapped_column(String, nullable=False)
+
+class Race(Base):
+    __tablename__ = "races"
+    race_id = mapped_column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    act_id = mapped_column(Integer, ForeignKey('acts.act_id'), nullable=False)
+    map_id = mapped_column(Integer, nullable=False)
+    race_number = mapped_column(Integer, nullable=False)
+
+    act = relationship("ACT", back_populates="races")
+
+class RacePlayer(Base):
+    __tablename__ = "race_players"
+    act_id = mapped_column(Integer, ForeignKey('acts.act_id'), primary_key=True, nullable=False)
+    user_id = mapped_column(Integer, ForeignKey('users.user_id'), primary_key=True, nullable=False)
+    points = mapped_column(Integer, nullable=False)
+
+    act = relationship("ACT", back_populates="acts")
+    user = relationship("User", back_populates="users")
+
+class Character(Base):
+    __tablename__ = "characters"
+    character_id = mapped_column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    character_name = mapped_column(String, nullable=False)
+
+class Team(Base):
+    __tablename__ = "teams"
+    team_id = mapped_column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    act_id = mapped_column(Integer, ForeignKey('acts.act_id'), nullable=False)
+    character_id = mapped_column(Integer, ForeignKey('characters.character_id'), nullable=False)
+
+    act = relationship("ACT", back_populates="acts")
+    character = relationship("Character", back_populates="characters")
+
+class TeamPlayer(Base):
+    __tablename__ = "team_players"
+    team_id = mapped_column(Integer, ForeignKey('teams.team_id'), primary_key=True, nullable=False)
+    user_id = mapped_column(Integer, ForeignKey('users.user_id'), primary_key=True, nullable=False)
+
+    team = relationship("Team", back_populates="teams")
+    user = relationship("User", back_populates="users")
+
+class DAO:
+    def __init__(self, db):
+        self.db = db
+        self._initialize_schema()
+
+    def _initialize_schema(self):
         repo_dir = os.path.dirname(os.path.abspath(__file__))
         schema_builder_path = os.path.join(repo_dir + '/database/schema-builder', '*')
         schema_files = sorted(glob.glob(schema_builder_path))
 
-        for file in schema_files:
-            with open(file, 'r') as f:
-                content = f.read()
-                statements = content.split(';')
-                for statement in statements:
-                    self.__do_query(statement)
-    
+        with self.db.engine.connect() as connection:
+            for file in schema_files:
+                with open(file, 'r') as f:
+                    content = f.read()
+                    for statement in content.split(';'):
+                        if statement.strip():
+                            connection.execute(text(statement))
+            connection.commit()
 
-    def __do_query(self, query, values = None):
-        try:
-            cnx = mysql.connector.connect(
-                user=config.user,
-                password=config.password,
-                host=config.host,
-                database=config.database,
-            )
-        except Exception as e:
-            print("Connection Error:", e)
-            print("Reattempting without specifying database")
-            # If database is uninitialized, the .connect method fails when specifying it
-            cnx = mysql.connector.connect(
-                user=config.user,
-                password=config.password,
-                host=config.host,
-            )
-        cursor = cnx.cursor(dictionary=True)
-        query = query.strip()
-        if query.endswith(';'):
-            query = query[:-1]
-        if query == '': # empty
-            cnx.close()
-            return
-        try:
-            if values is None:
-                cursor.execute(query)
-            else:
-                cursor.execute(query, values)
-            result = cursor.fetchall()
-            cnx.commit()
-            cnx.close()
-            return [row for row in result]
-        except mysql.connector.Error as err:
-            print("Failed query: {}".format(err))
-            cnx.close()
-    
+def __do_query(self, query, values=None):
+    try:
+        if values:
+            result = self.db.session.execute(text(query), values)
+        else:
+            result = self.db.session.execute(text(query))
+            
+        if query.lower().startswith('select'):
+            return [row._asdict() for row in result]
+        self.db.session.commit()
+        return result
+    except Exception as e:
+        self.db.session.rollback()
+        print(f"Query failed: {str(e)}")
+        raise
 
     def __get_dates_for_season(self, season):
         season_list = season.split()

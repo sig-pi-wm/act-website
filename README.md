@@ -9,7 +9,7 @@ cd act-website
 ```
 Activate virtual environment and install dependencies
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
