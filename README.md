@@ -17,6 +17,15 @@ Run the database for development (you'll have to install docker and docker deskt
 ```bash
 docker compose up -d
 ```
+
+Then navigate to [localhost:5050](https://localhost:5050) to access postgres, and you can sign in with the following credentials:
+![PgAdmin Login](assets/login_pgadmin.png)
+
+You may have to manually register the server if it's not showing up in the sidebar.
+Right click "Servers, in the upper left, when you're in Object Explorer," and select Register Server.
+Then type in the same info you logged in with:
+![Add Server PgAdmin](assets/add_server_pgadmin.png)
+
 (To shut down the database)
 ```bash
 docker compose down
